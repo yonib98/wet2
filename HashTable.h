@@ -1,11 +1,15 @@
 #ifndef WET2_HASHTABLE_H
 #define WET2_HASHTABLE_H
-#include "List.h"
 template<class T>
 class HashTable{
 private:
+    class HashTableItem {
+        int key;
+        T value;
+        HashTableItem* next;
+    }
     const int expand_parameter=2;
-    List<T>* data;
+    HashTableItem** lists_array;
     int current_size;
     int table_size;//Prime?
     int hash(int key);
@@ -24,19 +28,26 @@ int HashTable<T>::hash(int key){
 }
 template<class T>
 HashTable<T>::HashTable(int initial_size): current_size(0),table_size(initial_size){
-    data = new List<T>[initial_size];
-    for(int i=0;i<initial_size;i++){
-        data[i]= List<T>();
+    lists_array = new HashTableItem*[table_size];
+    for(int i=0;i<table_size;i++){
+        lists_array[i]=nullptr;
     }
 }
 template<class T>
 void HashTable<T>::insert(int key,const T& value){
     int index = hash(key);
-    List<T> list = data[index];
-    if(list.isExist(key)){
-        throw (int());
+    HashTableItem* list = data[index];
+    while(list>getNext()!= nullptr) {
+        if(*list->key==key) {
+            throw int();//AlreadyExists
+        }
+        list = list->getNext();
     }
-    list.insert(key,value);
+    if(*list->key==key) {
+        throw int();
+    }
+    HashTableItem* new_item = new HashTableItem<T>(key,data);
+    list->setNext(new_item);
     current_size++;
     if(current_size==table_size){
         expand();
@@ -68,23 +79,21 @@ T& HashTable<T>::search(int key) const{
 template<class T>
 void HashTable<T>::expand() {
     table_size*=expand_parameter;
-    List<T>* new_data = new List<T>[table_size];ֿ
-    for(int i=0;i<current_size;i++){
-        if(data[i].getRoot()== nullptr)
-            continue;
-        List<T> list=data;
-        Node<T>* root=data[i].getRoot();
-        while(list.getRoot()!= nullptr){
-            int key=list.getRoot()->key;
-            int new_index=hash(key);
-            T& value=list.getRoot()->getData();
-            new_data[new_index].insert(key,value);
-            Node<T>* to_remove=list.getRoot();
-            list.getRoot()=list.getRoot()->getNext();
-            delete (to_remove);
+    HashTableItem<T>** old_lists_array = lists_array;
+    HashTableItem<T>** new_lists_array = new HashTableItem<T>*[table_size];
+    lists_array=new_lists_array;
+    for(int i=0;i<current_size;i++) {
+        HashTableItem *list = old_lists_array[i];
+        HashTableItem* tmp = list;
+        while (tmp != nullptr) {
+            int key = tmp->key;
+            T value = tmp->value;
+            insert(key, value);
+            tmp++;
         }
-
+        delete list;
     }
+    delete [] old_lists_array;
 }
 
 #endif //WET2_HASHTABLE_H
