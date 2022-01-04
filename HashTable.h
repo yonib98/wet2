@@ -19,7 +19,9 @@ private:
     void expand();
 public:
 
-    HashTable(int initial_size);
+    explicit HashTable(int initial_size);
+    ~HashTable();
+    void clear();
     T& search(int key) const;
     void insert(int key,const T&);
     void remove(int key);
@@ -112,7 +114,7 @@ template<class T>
 void HashTable<T>::expand() {
     table_size*=expand_parameter;
     HashTable<T>::HashTableItem** old_lists_array = lists_array;
-    HashTable<T>::HashTableItem** new_lists_array = new HashTableItem*[table_size];
+    HashTable<T>::HashTableItem** new_lists_array = new HashTable<T>::HashTableItem*[table_size];
     for(int i=0;i<table_size;i++){
         new_lists_array[i]= nullptr;
     }
@@ -134,6 +136,43 @@ void HashTable<T>::expand() {
 
 template <class T>
 void HashTable<T>::shrink() {
+    table_size/=expand_parameter;
+    HashTable<T>::HashTableItem** old_lists_array = lists_array;
+    HashTable<T>::HashTableItem** new_lists_array = new HashTable<T>::HashTableItem*[table_size];
+    for(int i=0;i<table_size;i++){
+        new_lists_array[i]= nullptr;
+    }
+    lists_array=new_lists_array;
+    current_size=0;
+    for(int i=0;i<table_size*expand_parameter;i++) {
+        HashTable<T>::HashTableItem* list = old_lists_array[i];
+        HashTable<T>::HashTableItem* tmp = list;
+        while (tmp != nullptr) {
+            int key = tmp->key;
+            T value = tmp->value;
+            insert(key, value);
+            tmp = tmp->next;
+        }
+        delete list;
+    }
+    delete [] old_lists_array;
+}
 
+template<class T>
+HashTable<T>::~HashTable(){
+    clear();
+    delete [] lists_array;
+}
+
+template<class T>
+void HashTable<T>::clear(){
+    for(int i=0;i<table_size;i++){
+        HashTable<T>::HashTableItem* list=lists_array[i];
+        while(list!= nullptr){
+            HashTable<T>::HashTableItem* temp=list;
+            list=list->next;
+            delete temp;
+        }
+    }
 }
 #endif //WET2_HASHTABLE_H
