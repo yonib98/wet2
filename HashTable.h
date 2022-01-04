@@ -4,10 +4,12 @@ template<class T>
 class HashTable{
 private:
     class HashTableItem {
+        friend class HashTable;
         int key;
         T value;
         HashTableItem* next;
-    }
+        HashTableItem(int key,const T& value): key(key),value(value),next(nullptr){};
+    };
     const int expand_parameter=2;
     HashTableItem** lists_array;
     int current_size;
@@ -28,7 +30,7 @@ int HashTable<T>::hash(int key){
 }
 template<class T>
 HashTable<T>::HashTable(int initial_size): current_size(0),table_size(initial_size){
-    lists_array = new HashTableItem*[table_size];
+    lists_array = new HashTable<T>::HashTableItem*[table_size];
     for(int i=0;i<table_size;i++){
         lists_array[i]=nullptr;
     }
@@ -36,18 +38,26 @@ HashTable<T>::HashTable(int initial_size): current_size(0),table_size(initial_si
 template<class T>
 void HashTable<T>::insert(int key,const T& value){
     int index = hash(key);
-    HashTableItem* list = data[index];
-    while(list>getNext()!= nullptr) {
-        if(*list->key==key) {
+    HashTable<T>::HashTableItem* list = lists_array[index];
+    if(list==nullptr){
+        lists_array[index]=new HashTable<T>::HashTableItem(key,value);
+        current_size++;
+        if(current_size==table_size){
+            expand();
+        }
+        return;
+    }
+    while(list->next!= nullptr) {
+        if(list->key==key) {
             throw int();//AlreadyExists
         }
-        list = list->getNext();
+        list = list->next;
     }
-    if(*list->key==key) {
+    if(list->key==key) {
         throw int();
     }
-    HashTableItem* new_item = new HashTableItem<T>(key,data);
-    list->setNext(new_item);
+    HashTable<T>::HashTableItem* new_item =new HashTable<T>::HashTableItem(key,value);
+    list->next=new_item;
     current_size++;
     if(current_size==table_size){
         expand();
@@ -57,11 +67,16 @@ void HashTable<T>::insert(int key,const T& value){
 template<class T>
 void HashTable<T>::remove(int key){
     int index = hash(key);
-    HashTableItem* list = lists_array[index];
-    HashTableItem* temp=list;
+    HashTable<T>::HashTableItem* list = lists_array[index];
+    HashTable<T>::HashTableItem* temp=list;
     if(temp->key==key){
-        list=list->next;
+        lists_array[index]=list->next;
         delete(temp);
+        current_size--;
+        if(current_size<=table_size/4){
+            shrink();
+        }
+        return;
     }
     while(temp->next!=nullptr){
         if(temp->next->key==key){
@@ -71,7 +86,7 @@ void HashTable<T>::remove(int key){
         }
         temp=temp->next;
     }
-    table_size--;
+    current_size--;
     if(current_size<=table_size/4){
         shrink();
     }
@@ -79,16 +94,16 @@ void HashTable<T>::remove(int key){
 template<class T>
 T& HashTable<T>::search(int key) const{
     int index = hash(key);
-    HashTableItem* list = lists_array[index];
-    HashTableItem* temp=list;
+    HashTable<T>::HashTableItem* list = lists_array[index];
+    HashTable<T>::HashTableItem* temp=list;
     while(temp->next!= nullptr){
-        if(temp->key=key){
-            return value;
+        if(temp->key==key){
+            return temp->value;
         }
         temp=temp->next;
     }
-    if(temp->key=key){
-        return value;
+    if(temp->key==key){
+        return temp->value;
     }
     throw int();//does not exist
 }
@@ -96,21 +111,29 @@ T& HashTable<T>::search(int key) const{
 template<class T>
 void HashTable<T>::expand() {
     table_size*=expand_parameter;
-    HashTableItem** old_lists_array = lists_array;
-    HashTableItem** new_lists_array = new HashTableItem*[table_size];
+    HashTable<T>::HashTableItem** old_lists_array = lists_array;
+    HashTable<T>::HashTableItem** new_lists_array = new HashTableItem*[table_size];
+    for(int i=0;i<table_size;i++){
+        new_lists_array[i]= nullptr;
+    }
     lists_array=new_lists_array;
-    for(int i=0;i<current_size;i++) {
-        HashTableItem* list = old_lists_array[i];
-        HashTableItem* tmp = list;
+    current_size=0;
+    for(int i=0;i<table_size/expand_parameter;i++) {
+        HashTable<T>::HashTableItem* list = old_lists_array[i];
+        HashTable<T>::HashTableItem* tmp = list;
         while (tmp != nullptr) {
             int key = tmp->key;
             T value = tmp->value;
             insert(key, value);
-            tmp++;
+            tmp = tmp->next;
         }
         delete list;
     }
     delete [] old_lists_array;
 }
 
+template <class T>
+void HashTable<T>::shrink() {
+
+}
 #endif //WET2_HASHTABLE_H
