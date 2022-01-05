@@ -83,7 +83,7 @@ void HashTable<T>::remove(int key){
     while(temp->next!=nullptr){
         if(temp->next->key==key){
             temp->next=temp->next->next;
-            delete(temp);
+            delete(temp->next);
             break;
         }
         temp=temp->next;
