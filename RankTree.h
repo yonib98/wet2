@@ -1,7 +1,7 @@
 #ifndef WET2_GIT_RANKTREE_H
 #define WET2_GIT_RANKTREE_H
 #include "AVLTree.h"
-class RankTree : public AVLTree<int*>{
+class RankTree : public AVLTree<{
     int scale;
     int* zero_scores;
 public:

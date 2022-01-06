@@ -5,24 +5,26 @@
 #include "string"
 #include <iostream>
 #include "Exceptions.h"
-template <class T>
 class AVLTree {
     class Node {
         int key_primary;
         int key_secondary;
-        T data;
+        int scale;
         int* sub_tree_scores;
-        int scale_score;
+        int* self_scores;
         Node *parent;
         Node *left;
         Node *right;
         int height;
-        friend class AVLTree<T>;
+        friend class AVLTree;
     public:
-        Node(int scale_score): parent(nullptr),left(nullptr),right(nullptr),height(0),scale_score(scale_score){
-            sub_tree_scores=new int[scale_score+1];
-            for(int i=1;i<scale_score;i++){
+        Node(int scale): parent(nullptr),left(nullptr),right(nullptr),height(0),scale(scale){
+            //sub_tree_scores = data;
+            sub_tree_scores=new int[scale+1];
+            self_scores=new int[scale+1];
+            for(int i=1;i<scale+1;i++){
                 sub_tree_scores[i]=0;
+                self_scores[i]=0;
             }
         };
         int getBf(){
@@ -36,8 +38,8 @@ class AVLTree {
             height = std::max(lheight,rheight)+1;
         }
         void updateSubTreeScores(){
-           for(int i=0;i<scale_score;i++){
-               sub_tree_scores[i] = left==nullptr? 0:left->sub_tree_scores[i];
+           for(int i=1;i<scale+1;i++){
+               sub_tree_scores[i] = left==nullptr? self_scores[i]:left->sub_tree_scores[i]+self_scores[i];
                sub_tree_scores[i] += right== nullptr? 0:right->sub_tree_scores[i];
            }
         }
@@ -53,9 +55,18 @@ class AVLTree {
         int getKey(){
             return key_primary;
         }
-        T& getData() const{
-            return data;
+        int* getData() const{
+            return self_scores;
         }
+        bool isEmptySelfScores(){
+            for(int i=1;i<=scale;i++){
+                if(self_scores[i]!=0){
+                    return false;
+                }
+            }
+            return true;
+        }
+
         bool operator==(const Node &to_compare) const;
 
         bool operator>(const Node &to_compare) const;
@@ -86,7 +97,7 @@ public:
 
     void leftRotation(Node *current_root, Node *root_right_son);
 
-    Node* innerRemove(Node* to_find);
+    Node* innerRemove(Node* to_find,int score, bool* do_remove);
 
     Node* sequentialRemove(Node* root);
 
@@ -95,18 +106,18 @@ public:
 
     void merge(Node** A,int na,Node** B,int nb, Node** C);
 
-    static Node* createCompleteTree(Node* root, int h);
+    static Node* createCompleteTree(Node* root, int h, int scale);
 
 public:
     AVLTree(bool use_secondary_key,int scale);
 
     AVLTree& operator=(const AVLTree& tree_to_copy);
 
-    T& find(int key_primary, int key_secondary) const;
+    int* find(int key_primary, int key_secondary) const;
 
-    void insert(int key_primary, int key_secondary, T data);
+    void insert(int key_primary, int key_secondary, int score);
 
-    void remove(int key_primary, int key_secondary);
+    void remove(int key_primary, int key_secondary, int score);
 
     void updateSmallest();
 
@@ -114,18 +125,18 @@ public:
 
     bool isEmpty() const;
 
-    const T& getBiggest() const;
+    int* getBiggest() const;
 
-    const T& getSmallest() const;
+    const int* getSmallest() const;
 
 
     int getSize() const;
 
-    void helpExport(Node* root,T* arr, int* count) const;
+    void helpExport(Node* root,int** arr, int* count) const;
 
     void helpIDExport(Node* root,int* arr,int *count) const;
 
-    T* exportToArray(T* arr) const;
+    int** exportToArray(int** arr) const;
 
     int* exportToIDArray(int* arr) const;
 
@@ -133,7 +144,7 @@ public:
 
     void mergeWith(AVLTree& another_tree);
 
-    static AVLTree almostCompleteTree(bool use_secondary_key,int n);
+    static AVLTree almostCompleteTree(bool use_secondary_key,int n,int scale);
 
     void makeAlmostComplete(Node* root,int n);
 
@@ -150,20 +161,18 @@ public:
 
     ~AVLTree();
 };
-template <class T>
-AVLTree<T>::AVLTree(bool use_secondary_key,int scale):size(0),scale(scale), use_secondary_key(use_secondary_key), root(nullptr),biggest(nullptr){}
 
-template<class T>
-AVLTree<T>::~AVLTree() {
+AVLTree::AVLTree(bool use_secondary_key,int scale):size(0),scale(scale), use_secondary_key(use_secondary_key), root(nullptr),biggest(nullptr){}
+
+AVLTree::~AVLTree() {
     deleteTree();
 }
-template<class T>
-AVLTree<T>& AVLTree<T>::operator=(const AVLTree<T>& tree_to_copy){
+AVLTree& AVLTree::operator=(const AVLTree& tree_to_copy){
     if(this==&tree_to_copy){
         return *this;
     }
     this->deleteTree();
-   root = this->treeCopy(tree_to_copy.root);
+    root = this->treeCopy(tree_to_copy.root);
     size=tree_to_copy.size;
     use_secondary_key=tree_to_copy.use_secondary_key;
     biggest=tree_to_copy.biggest;
@@ -171,8 +180,7 @@ AVLTree<T>& AVLTree<T>::operator=(const AVLTree<T>& tree_to_copy){
 
 }
 
-template <class T>
-typename AVLTree<T>::Node* AVLTree<T>::innerFind(const Node& to_search) const {
+typename AVLTree::Node* AVLTree::innerFind(const Node& to_search) const {
     Node* closest_parent = nullptr;
     Node* temp=root;
     while(temp!=nullptr){
@@ -192,23 +200,21 @@ typename AVLTree<T>::Node* AVLTree<T>::innerFind(const Node& to_search) const {
     return closest_parent;
 }
 
-template <class T>
-T& AVLTree<T>::find(int key_primary,int key_secondary) const {
-    Node to_search;
+int* AVLTree::find(int key_primary,int key_secondary) const {
+    Node to_search(scale);
     to_search.key_primary = key_primary;
     to_search.key_secondary=key_secondary;
     Node* result = innerFind(to_search);
     if(result!= nullptr){
         if(*result==to_search){
-            return result->data;
+            return result->self_scores;
         }
     }
     throw DoesNotExist();
 
 }
 
-template <class T>
-void AVLTree<T>::insert(int key_primary,int key_secondary,T data) {
+void AVLTree::insert(int key_primary,int key_secondary,int score) {
     Node *to_insert = new Node(scale);
     to_insert->key_primary = key_primary;
     if(use_secondary_key) {
@@ -217,18 +223,32 @@ void AVLTree<T>::insert(int key_primary,int key_secondary,T data) {
     else{
         to_insert->key_secondary = 0;
     }
-    to_insert->data = data;
+    to_insert->self_scores[score]++;
+    to_insert->sub_tree_scores[score]++;
     Node *result = innerFind(*to_insert);
     if(result==nullptr){
         root=to_insert;
+        //root->sub_tree_scores[score]++;
         size++;
         updateBiggest();
         return;
     }
     if (*result == *to_insert) {
+        result->sub_tree_scores[score]++;
+        result->self_scores[score]++;
+        Node* temp=result;
+        while(temp!=root){
+            Node* parent = temp->parent;
+            if(parent==nullptr){
+                break;
+            }
+            parent->updateSubTreeScores();
+            temp=temp->parent;
+        }
         delete to_insert;
-        throw AlreadyExists();
+        return;
     }
+
     if (*to_insert > *result) {
         result->right = (to_insert);
         to_insert->parent = result;
@@ -241,7 +261,10 @@ void AVLTree<T>::insert(int key_primary,int key_secondary,T data) {
     Node* second_temp=temp;
     while(second_temp!=root){
         Node* parent = second_temp->parent;
-        parent->update_sub_tree_scores();
+        if(parent==nullptr){
+            break;
+        }
+        parent->updateSubTreeScores();
         second_temp=second_temp->parent;
     }
     while (temp != root && !rotation) {
@@ -329,8 +352,7 @@ void AVLTree<T>::insert(int key_primary,int key_secondary,T data) {
     size++;
     updateBiggest();
 }
-template<class T>
-typename AVLTree<T>::Node* AVLTree<T>::findSequential( typename AVLTree<T>::Node* p){
+typename AVLTree::Node* AVLTree::findSequential( typename AVLTree::Node* p){
     p=p->right;
     while(p->left!= nullptr){
         p=p->left;
@@ -338,16 +360,22 @@ typename AVLTree<T>::Node* AVLTree<T>::findSequential( typename AVLTree<T>::Node
     return p;
 }
 
-template<class T>
-typename AVLTree<T>::Node* AVLTree<T>::innerRemove(Node* to_find) {
+typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_remove ) {
 
     Node *found = innerFind(*to_find);
     Node* parent;
     if(*found==*to_find){
+        found->self_scores[score]--;
+        found->sub_tree_scores[score]--;
+        if(!found->isEmptySelfScores()){
+            *do_remove=false;
+           return found;
+        }
         parent=found->parent;
     }else{
         throw DoesNotExist();
     }
+    *do_remove=true;
     if (found->isLeaf()) {
         if (parent == nullptr) {
             root = nullptr;
@@ -444,8 +472,8 @@ typename AVLTree<T>::Node* AVLTree<T>::innerRemove(Node* to_find) {
     return nullptr; //shouldnt get here
 }
 
-template<class T>
-typename AVLTree<T>::Node* AVLTree<T>::sequentialRemove(Node* root){
+
+typename AVLTree::Node* AVLTree::sequentialRemove(Node* root){
     root=root->right;
     while(root->left!=nullptr){
         root=root->left;
@@ -464,16 +492,27 @@ typename AVLTree<T>::Node* AVLTree<T>::sequentialRemove(Node* root){
     delete root;
     return p;
 }
-template <class T>
-void AVLTree<T>::remove(int key_primary, int key_secondary){
-    Node to_find = Node();
+
+
+void AVLTree::remove(int key_primary, int key_secondary,int score){
+    Node to_find = Node(scale);
     to_find.key_primary = key_primary;
     if (use_secondary_key) {
         to_find.key_secondary = key_secondary;
-    } else to_find.key_secondary = 0;
-    Node* parent = innerRemove(&to_find);
+    }
+    else to_find.key_secondary = 0;
+    bool do_remove=false;
+    Node* parent = innerRemove(&to_find,score, &do_remove);
+    if(do_remove==false){
+        while(parent!=nullptr){
+            parent->updateSubTreeScores();
+            parent=parent->parent;
+        }
+        return;
+    }
     while(parent!=nullptr){
         parent->updateHeight();
+        parent->updateSubTreeScores();
         int current_bf = parent->getBf();
         if(current_bf==2){
             Node* left_son = parent->left;
@@ -552,14 +591,30 @@ void AVLTree<T>::remove(int key_primary, int key_secondary){
     size--;
 }
 
-template<class T>
-bool AVLTree<T>::isEmpty() const {
+bool AVLTree::isEmpty() const {
     return root == nullptr;
 }
 
-template<class T>
-void AVLTree<T>::rightRotation(Node *current_root, Node *root_left_son) {
+void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
     Node *temp = root_left_son->right;
+    for(int i=0;i<scale;i++){
+        root_left_son->sub_tree_scores[i]=current_root->sub_tree_scores[i];
+
+    }
+    if(current_root->right!=nullptr){
+        for(int i=0;i<scale;i++){
+            current_root->sub_tree_scores[i]=current_root->right->sub_tree_scores[i];
+        }
+    }else{
+        for(int i=0;i<scale;i++){
+            current_root->sub_tree_scores[i] = current_root->self_scores[i];
+        }
+    }
+    if(temp!=nullptr){
+        for(int i=0;i<scale;i++){
+            current_root->sub_tree_scores[i]+=temp->sub_tree_scores[i];
+        }
+    }
     root_left_son->right = (current_root);
     root_left_son->parent=current_root->parent;
     current_root->parent=root_left_son;
@@ -570,43 +625,59 @@ void AVLTree<T>::rightRotation(Node *current_root, Node *root_left_son) {
     root_left_son->updateHeight();
 }
 
-template<class T>
-void AVLTree<T>::leftRotation(Node *current_root, Node *root_right_son) {
+void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
+
     Node *temp = root_right_son->left;
-    root_right_son->left = (current_root);
-    root_right_son->parent=current_root->parent;
-    current_root->parent=root_right_son;
-    current_root->right =temp;
-    if(temp!= nullptr)
-        temp->parent=current_root;
-    current_root->updateHeight();
-    root_right_son->updateHeight();
+    for (int i = 1; i <= scale; i++) {
+        root_right_son->sub_tree_scores[i] = current_root->sub_tree_scores[i];
+
+    }
+    if (current_root->left != nullptr) {
+        for (int i = 1; i <= scale; i++) {
+            current_root->sub_tree_scores[i] = current_root->left->sub_tree_scores[i];
+        }
+    } else {
+        for (int i = 1; i <= scale; i++) {
+            current_root->sub_tree_scores[i] = current_root->self_scores[i];
+        }
+    }
+    if (temp != nullptr) {
+        for (int i = 1; i <= scale; i++) {
+            current_root->sub_tree_scores[i] += temp->sub_tree_scores[i];
+        }
+    }
+        root_right_son->left = (current_root);
+        root_right_son->parent = current_root->parent;
+        current_root->parent = root_right_son;
+        current_root->right = temp;
+        if (temp != nullptr)
+            temp->parent = current_root;
+        current_root->updateHeight();
+        root_right_son->updateHeight();
 }
 
-template<class T>
-bool  AVLTree<T>::Node::operator==(const AVLTree<T>::Node& to_compare) const {
+bool  AVLTree::Node::operator==(const AVLTree::Node& to_compare) const {
     return this->key_primary == to_compare.key_primary &&
            this->key_secondary == to_compare.key_secondary;
 }
-template<class T>
-typename AVLTree<T>::Node& AVLTree<T>::Node::operator=(const Node &to_copy) {
+typename AVLTree::Node& AVLTree::Node::operator=(const Node &to_copy) {
     if(this==&to_copy){
         return *this;
     }
     key_primary= to_copy.key_primary;
     key_secondary=to_copy.key_secondary;
-    data=to_copy.data;
+    for(int i=1;i<=scale;i++){
+        self_scores[i]=to_copy.self_scores[i];
+    }
     return *this;
 }
-template<class T>
-bool AVLTree<T>::Node::operator>(const typename AVLTree<T>::Node &to_compare) const {
+bool AVLTree::Node::operator>(const typename AVLTree::Node &to_compare) const {
     if (this->key_primary == to_compare.key_primary) {
         return this->key_secondary < to_compare.key_secondary;
     }
     return this->key_primary > to_compare.key_primary;
 }
-template<class T>
-void AVLTree<T>::updateSmallest(){
+void AVLTree::updateSmallest(){
     Node* tmp = root;
     smallest=root;
     while(tmp!=nullptr){
@@ -614,8 +685,7 @@ void AVLTree<T>::updateSmallest(){
         tmp = tmp->left;
     }
 }
-template<class T>
-void AVLTree<T>::updateBiggest(){
+void AVLTree::updateBiggest(){
     Node* tmp = root;
     biggest=root;
     while(tmp!=nullptr){
@@ -624,14 +694,12 @@ void AVLTree<T>::updateBiggest(){
     }
 }
 
-template<class T>
-void AVLTree<T>::deleteTree(){
+void AVLTree::deleteTree(){
     treeClear(root);
     root= nullptr;
     biggest= nullptr;
 }
-template<class T>
-void AVLTree<T>::treeClear(Node* root) {
+void AVLTree::treeClear(Node* root) {
     if(root== nullptr){
         return;
     }
@@ -639,12 +707,11 @@ void AVLTree<T>::treeClear(Node* root) {
     treeClear(root->right);
     delete root;
 }
-template<class T>
-typename AVLTree<T>::Node* AVLTree<T>::treeCopy(typename AVLTree<T>::Node* root){
+typename AVLTree::Node* AVLTree::treeCopy(typename AVLTree::Node* root){
     if(root==nullptr){
         return nullptr;
     }
-    typename AVLTree<T>::Node* node =new typename AVLTree<T>::Node();
+    typename AVLTree::Node* node =new typename AVLTree::Node(scale);
     *(node)=*root;
     node->left= treeCopy(root->left);
     if(node->left!=nullptr){
@@ -658,12 +725,10 @@ typename AVLTree<T>::Node* AVLTree<T>::treeCopy(typename AVLTree<T>::Node* root)
     return node;
 }
 
-template<class T>
-const T& AVLTree<T>::getBiggest() const  {
-    return biggest->data;
+int* AVLTree::getBiggest() const  {
+    return biggest->self_scores;
 }
-template <class T>
-void AVLTree<T>::helpIDExport(Node* root,int* arr, int* count) const {
+void AVLTree::helpIDExport(Node* root,int* arr, int* count) const {
     if(root==nullptr || *count==size){
         return;
     }
@@ -677,54 +742,47 @@ void AVLTree<T>::helpIDExport(Node* root,int* arr, int* count) const {
     helpIDExport(root->left,arr,count);
 
 }
-template<class T>
-void AVLTree<T>::helpExport(Node* root,T* arr, int* count) const {
+void AVLTree::helpExport(Node* root,int** arr, int* count) const {
     if(root==nullptr || *count==size){
         return;
     }
     helpExport(root->right,arr,count);
-    arr[*count] = root->data;
+    arr[*count] = root->self_scores;
     (*count)++;
     helpExport(root->left,arr,count);
 
 }
-template<class T>
-T* AVLTree<T>::exportToArray(T* arr) const {
+int** AVLTree::exportToArray(int** arr) const {
     int count = 0;
     helpExport(root,arr,&count);
     return arr;
 }
-template<class T>
-int* AVLTree<T>::exportToIDArray(int* arr) const {
+int* AVLTree::exportToIDArray(int* arr) const {
     int count = 0;
     helpIDExport(root,arr,&count);
     return arr;
 }
-template<class T>
 template<class Predicate>
-void AVLTree<T>::helpInOrder(int* count, Predicate p, typename AVLTree<T>::Node* root) const {
+void AVLTree::helpInOrder(int* count, Predicate p, typename AVLTree::Node* root) const {
     if(root==nullptr || *count==0) {
         return;
     }
     helpInOrder(count,p,root->left);
     if(*count>0){
-            p(root->data,count);
+            p(root->self_scores,count);
             (*count)--;
     }
     helpInOrder(count,p,root->right);
 }
-template<class T>
 template<class Predicate>
-void AVLTree<T>::inOrder(int* count,Predicate p) const {
+void AVLTree::inOrder(int* count,Predicate p) const {
     helpInOrder(count,p,root);
 }
-template<class T>
-int AVLTree<T>::getSize() const {
+int AVLTree::getSize() const {
     return size;
 }
-template<class T>
-void AVLTree<T>::exportToNodeArray(typename AVLTree<T>::Node* root,
-                                             typename AVLTree<T>::Node** arr,int* count) {
+void AVLTree::exportToNodeArray(typename AVLTree::Node* root,
+                                             typename AVLTree::Node** arr,int* count) {
     if(root==nullptr || *count==size){
         return;
     }
@@ -733,9 +791,8 @@ void AVLTree<T>::exportToNodeArray(typename AVLTree<T>::Node* root,
     (*count)++;
     exportToNodeArray(root->right,arr,count);
 }
-template<class T>
-void AVLTree<T>::merge(typename AVLTree<T>::Node** A,int na,
-                       typename AVLTree<T>::Node** B,int nb, typename AVLTree<T>::Node** C){
+void AVLTree::merge(typename AVLTree::Node** A,int na,
+                       typename AVLTree::Node** B,int nb, typename AVLTree::Node** C){
     int ia=0,ib=0,ic=0;
     while(ia<na && ib < nb){
         if(*A[ia]>*B[ib]){
@@ -751,8 +808,7 @@ void AVLTree<T>::merge(typename AVLTree<T>::Node** A,int na,
         C[ic]=B[ib];
     }
 }
-template<class T>
-void AVLTree<T>::mergeWith(AVLTree<T>& another_tree) {
+void AVLTree::mergeWith(AVLTree& another_tree) {
     int second_arr_size = another_tree.getSize();
     Node** my_arr = new Node*[size];
     Node** second_arr = new Node*[second_arr_size];
@@ -766,7 +822,7 @@ void AVLTree<T>::mergeWith(AVLTree<T>& another_tree) {
     Node** merge_arr = new Node*[merged_arr_size];
     merge(my_arr,size,second_arr,another_tree.getSize(),merge_arr);
 
-    AVLTree<T> almost_complete_tree = AVLTree<T>::almostCompleteTree(this->use_secondary_key,merged_arr_size);
+    AVLTree almost_complete_tree = AVLTree::almostCompleteTree(this->use_secondary_key,merged_arr_size,scale);
     int index=0;
     almost_complete_tree.pushArrayToTree(almost_complete_tree.root,merge_arr,&index);
     almost_complete_tree.updateBiggest();
@@ -776,33 +832,30 @@ void AVLTree<T>::mergeWith(AVLTree<T>& another_tree) {
     delete[] second_arr;
     delete[] merge_arr;
 }
-template<class T>
-typename AVLTree<T>::Node* AVLTree<T>::createCompleteTree(typename AVLTree<T>::Node* root,int h){
-     root= new typename AVLTree<T>::Node();
+typename AVLTree::Node* AVLTree::createCompleteTree(typename AVLTree::Node* root,int h,int scale){
+     root= new typename AVLTree::Node(scale);
     if(h==0){
         return root;
     }
-    root->left=createCompleteTree(root->left,h-1);
+    root->left=createCompleteTree(root->left,h-1,scale);
     root->left->parent=root;
-    root->right=createCompleteTree(root->right,h-1);
+    root->right=createCompleteTree(root->right,h-1,scale);
     root->right->parent=root;
     root->updateHeight();
     return root;
 }
 
-template<class T>
-AVLTree<T> AVLTree<T>::almostCompleteTree(bool use_secondary_key,int n){
-    AVLTree<T> almost_complete_tree = AVLTree<T>(use_secondary_key);
+AVLTree AVLTree::almostCompleteTree(bool use_secondary_key,int n,int scale){
+    AVLTree almost_complete_tree = AVLTree(use_secondary_key,scale);
     int h = std::ceil(std::log2(n+1))-1;
-   almost_complete_tree.root = AVLTree<T>::createCompleteTree(nullptr,h);
+   almost_complete_tree.root = AVLTree::createCompleteTree(nullptr,h,scale);
    almost_complete_tree.size=std::pow(2,h+1)-1;
 
    almost_complete_tree.makeAlmostComplete(almost_complete_tree.root,n);
    //reverse in order -> almost complete tree
     return almost_complete_tree;
 }
-template<class T>
-void AVLTree<T>::makeAlmostComplete(typename AVLTree<T>::Node* root, int n){
+void AVLTree::makeAlmostComplete(typename AVLTree::Node* root, int n){
     if (root==nullptr || size==n){
         return;
     }
@@ -823,8 +876,7 @@ void AVLTree<T>::makeAlmostComplete(typename AVLTree<T>::Node* root, int n){
     makeAlmostComplete(root->left,n);
 
 }
-template<class T>
-void AVLTree<T>::pushArrayToTree(typename AVLTree<T>::Node* root,typename AVLTree<T>::Node** arr,int* index){
+void AVLTree::pushArrayToTree(typename AVLTree::Node* root,typename AVLTree::Node** arr,int* index){
     if(*index==size || root==nullptr){
         return;
     }
