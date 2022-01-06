@@ -35,6 +35,12 @@ class AVLTree {
             int rheight = right ==nullptr? -1:right->height;
             height = std::max(lheight,rheight)+1;
         }
+        void updateSubTreeScores(){
+           for(int i=0;i<scale_score;i++){
+               sub_tree_scores[i] = left==nullptr? 0:left->sub_tree_scores[i];
+               sub_tree_scores[i] += right== nullptr? 0:right->sub_tree_scores[i];
+           }
+        }
         bool isLeaf(){
             return right==nullptr && left == nullptr;
         }
@@ -235,7 +241,8 @@ void AVLTree<T>::insert(int key_primary,int key_secondary,T data) {
     Node* second_temp=temp;
     while(second_temp!=root){
         Node* parent = second_temp->parent;
-
+        parent->update_sub_tree_scores();
+        second_temp=second_temp->parent;
     }
     while (temp != root && !rotation) {
         Node* parent = temp->parent;
@@ -617,10 +624,6 @@ void AVLTree<T>::updateBiggest(){
     }
 }
 
-template<class T>
-const T& AVLTree<T>::getSmallest(){
-    return smallest->data;
-}
 template<class T>
 void AVLTree<T>::deleteTree(){
     treeClear(root);
