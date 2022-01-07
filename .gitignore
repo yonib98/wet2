@@ -3,3 +3,5 @@ CMakeLists.txt
 main.cpp
 .DS_Store
 .idea/
+*.json
+*.cmake
