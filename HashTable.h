@@ -14,7 +14,7 @@ private:
     HashTableItem** lists_array;
     int current_size;
     int table_size;//Prime?
-    int hash(int key);
+    int hash(int key) const;
     void shrink();
     void expand();
 public:
@@ -22,12 +22,12 @@ public:
     explicit HashTable(int initial_size);
     ~HashTable();
     void clear();
-    T& search(int key) const;
+    T search(int key) const;
     void insert(int key,const T&);
     void remove(int key);
 };
 template<class T>
-int HashTable<T>::hash(int key){
+int HashTable<T>::hash(int key) const {
     return key%table_size;
 }
 template<class T>
@@ -94,7 +94,7 @@ void HashTable<T>::remove(int key){
     }
 }
 template<class T>
-T& HashTable<T>::search(int key) const{
+T HashTable<T>::search(int key) const{
     int index = hash(key);
     HashTable<T>::HashTableItem* list = lists_array[index];
     HashTable<T>::HashTableItem* temp=list;
@@ -107,7 +107,7 @@ T& HashTable<T>::search(int key) const{
     if(temp->key==key){
         return temp->value;
     }
-    throw int();//does not exist
+    return nullptr;//does not exist
 }
 
 template<class T>
