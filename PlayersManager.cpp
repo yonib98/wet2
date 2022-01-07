@@ -22,3 +22,9 @@ void PlayerManager::addPlayer(int player_id,int group_id,int score){
 
 }
 void removePlayer(int player_id);
+
+void increasePlayerIDLevel(int player_id,int level_increase){
+    Player* player=players_table.search(player_id);
+    int old_level=player->level;
+    
+}
