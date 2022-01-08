@@ -31,22 +31,25 @@ public:
                 group_zero_level_scores[i] = 0;
             }
         }
+        ~Group(){
+            std::cout <<"Destructed" << std::endl;
+        }
     };
 
     PlayerManager(int k,int scale);
-    void mergeGroups(int first_group_id,int second_group_id);
     void addPlayer(int player_id,int group_id,int score);
     void removePlayer(int player_id);
     void increasePlayerIDLevel(int player_id,int level_increase);
     void changePlayerIDScore(int player_id, int new_score);
     void getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players);
     void averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel);
+    void mergeGroups(int first_group, int second_group);
     ~PlayerManager();
 
 private:
     const int initial_size=5;
     AVLTree all_players_level_tree;
-    HashTable<Player*> players_table;
+    HashTable<Player> players_table;
     Group* groups_array;
     Union groups_ids;
     int* zero_level_scores;

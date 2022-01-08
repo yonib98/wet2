@@ -22,7 +22,7 @@ public:
     explicit HashTable(int initial_size);
     ~HashTable();
     void clear();
-    T search(int key) const;
+    T* search(int key) const;
     void insert(int key,const T&);
     void remove(int key);
 };
@@ -94,18 +94,21 @@ void HashTable<T>::remove(int key){
     }
 }
 template<class T>
-T HashTable<T>::search(int key) const{
+T* HashTable<T>::search(int key) const{
     int index = hash(key);
     HashTable<T>::HashTableItem* list = lists_array[index];
     HashTable<T>::HashTableItem* temp=list;
+    if(temp==nullptr){
+        return nullptr;
+    }
     while(temp->next!= nullptr){
         if(temp->key==key){
-            return temp->value;
+            return &temp->value;
         }
         temp=temp->next;
     }
     if(temp->key==key){
-        return temp->value;
+        return &temp->value;
     }
     return nullptr;//does not exist
 }
