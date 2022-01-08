@@ -39,6 +39,8 @@ public:
     void removePlayer(int player_id);
     void increasePlayerIDLevel(int player_id,int level_increase);
     void changePlayerIDScore(int player_id, int new_score);
+    void getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players);
+    void averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel);
     ~PlayerManager();
 
 private:

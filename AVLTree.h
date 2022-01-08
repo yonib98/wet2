@@ -109,6 +109,7 @@ public:
     static Node* createCompleteTree(Node* root, int h, int scale);
 
 public:
+    AVLTree()=default;
     AVLTree(bool use_secondary_key,int scale);
 
     AVLTree& operator=(const AVLTree& tree_to_copy);
@@ -158,6 +159,9 @@ public:
             void inOrder(int* count,Predicate p) const;
     template<class Predicate>
             void helpInOrder(int* count,Predicate p,Node* root) const;
+
+    void scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score);
+    void scoresInBounds(int lower_level,int higher_level,int score,int *sum_of_players,int* sum_of_players_with_score);
 
     ~AVLTree();
 };
@@ -885,4 +889,54 @@ void AVLTree::pushArrayToTree(typename AVLTree::Node* root,typename AVLTree::Nod
     (*index)++;
     pushArrayToTree(root->right,arr,index);
 }
+void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score){
+    Node to_search(scale);
+    to_search.key_primary = level;
+    Node* temp=root;
+    while(temp!=nullptr){
+        if(to_search==*temp) {
+            if(lower_bound==false){
+                for(int i=1;i<=scale;i++){
+                    *sum_of_players+=temp->self_scores[i];
+                }
+                *sum_of_players_with_score+=temp->self_scores[score];
+            }
+            if(temp->left!=nullptr){
+                for(int i=1;i<=scale;i++){
+                    *sum_of_players+=temp->left->sub_tree_scores[i];
+                }
+                *sum_of_players_with_score+=temp->left->sub_tree_scores[score];
+            }
+            break;
+        }
+        else if (to_search>*temp){
+            *sum_of_players_with_score+=temp->self_scores[score];
+            if(temp->left!=nullptr){
+                *sum_of_players_with_score+=temp->left->sub_tree_scores[score];
+            }
+            for(int i=1;i<=scale;i++){
+                *sum_of_players+=temp->self_scores[i];
+                if(temp->left!=nullptr){
+                    *sum_of_players+=temp->left->sub_tree_scores[i];
+                }
+            }
+            temp=temp->right;
+        }
+        else{
+            temp=temp->left;
+
+        }
+    }
+}
+void AVLTree::scoresInBounds(int lower_level,int higher_level,int score,int *sum_of_players,int* sum_of_players_with_score){
+    *sum_of_players=0;
+    *sum_of_players_with_score=0;
+    scoresInInterval(false,score,higher_level,sum_of_players,sum_of_players_with_score);
+    int sum_not_in_range=0;
+    int sum_not_in_range_score=0;
+    scoresInInterval(true,score,lower_level,&sum_not_in_range,&sum_not_in_range_score);
+    *sum_of_players-=sum_not_in_range;
+    *sum_of_players_with_score-=sum_not_in_range_score;
+}
+
 #endif //HW1_MIVNEY_AVLTREE_H

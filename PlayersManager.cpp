@@ -50,10 +50,10 @@ void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
     Group group=groups_array[index_group];
     player->level+=level_increase;
     if(old_level==0){
-        zero_level_scores[score]--;
+        zero_level_scores[player->score]--;
         all_players_level_tree.insert(player->level,0,player->score);
         group.group_zero_level_scores[scale]--;
-        group.levels_tree.insert(player->level,0,player->score)
+        group.levels_tree.insert(player->level,0,player->score);
     }
     else
     {
@@ -74,7 +74,7 @@ void PlayerManager::changePlayerIDScore(int player_id, int new_score){
     Group group=groups_array[index_group];
     if(player_level==0){
         zero_level_scores[old_score]--;
-        zero_level_scores[new_Score]++;
+        zero_level_scores[new_score]++;
         group.group_zero_level_scores[old_score]--;
         group.group_zero_level_scores[new_score]++;
     }
@@ -84,4 +84,36 @@ void PlayerManager::changePlayerIDScore(int player_id, int new_score){
         group.levels_tree.remove(player_level,0,old_score);
         group.levels_tree.insert(player_level,0,new_score);
     }
+}
+void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players){
+    int sum_of_players_in_bounds=0;
+    int sum_of_players_with_score_in_bounds=0;
+    if(group_id==0) {
+        all_players_level_tree.scoresInBounds(lower_level, higher_level, score, &sum_of_players_in_bounds,
+                                              &sum_of_players_with_score_in_bounds);
+        if(lower_level<=0){
+            for(int i=1;i<=scale;i++){
+                sum_of_players_in_bounds+=zero_level_scores[i];
+            }
+            sum_of_players_with_score_in_bounds+=zero_level_scores[score];
+        }
+    }
+    else{
+        int index_group = groups_ids.find(group_id);
+        Group group = groups_array[index_group];
+        group.levels_tree.scoresInBounds(lower_level, higher_level, score, &sum_of_players_in_bounds,
+                                        &sum_of_players_with_score_in_bounds);
+        if(lower_level<=0){
+            for(int i=1;i<=scale;i++){
+                sum_of_players_in_bounds+=group.group_zero_level_scores[i];
+            }
+            sum_of_players_with_score_in_bounds+=group.group_zero_level_scores[score];
+        }
+
+        }
+    if(sum_of_players_with_score_in_bounds==0){
+        throw int();//Failure
+    }
+     *players=(double)(sum_of_players_with_score_in_bounds/sum_of_players_in_bounds)*100;
+
 }
