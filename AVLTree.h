@@ -12,13 +12,14 @@ class AVLTree {
         int scale;
         int* sub_tree_scores;
         int* self_scores;
+        double average;
         Node *parent;
         Node *left;
         Node *right;
         int height;
         friend class AVLTree;
     public:
-        Node(int scale): parent(nullptr),left(nullptr),right(nullptr),height(0),scale(scale){
+        Node(int scale): parent(nullptr),left(nullptr),right(nullptr),height(0),scale(scale),average(0){
             //sub_tree_scores = data;
             sub_tree_scores=new int[scale+1];
             self_scores=new int[scale+1];
@@ -36,6 +37,19 @@ class AVLTree {
             int lheight = left==nullptr? -1:left->height;
             int rheight = right ==nullptr? -1:right->height;
             height = std::max(lheight,rheight)+1;
+        }
+        void updateAverage(){
+            int count_left = left == nullptr? 0:left->getSubTreePlayersCount();
+            int count_right = right == nullptr? 0:right->getSubTreePlayersCount();
+            if(count_left+count_right==0){
+                average=key_primary;
+            }else{
+                average=count_left==0? 0:left->average*count_left;
+                average+=count_right==0? 0:right->average*count_right;
+                int count_current = getPlayersCount();
+                average+=count_current*key_primary;
+                average=(double)average/(count_left+count_right+count_current);
+            }
         }
         void updateSubTreeScores(){
            for(int i=1;i<scale+1;i++){
@@ -65,6 +79,20 @@ class AVLTree {
                 }
             }
             return true;
+        }
+        int  getPlayersCount(){
+            int count=0;
+            for(int i=1;i<=scale;i++){
+                count+=self_scores[i];
+            }
+            return count;
+        }
+        int getSubTreePlayersCount(){
+            int count=0;
+            for(int i=1;i<=scale;i++){
+                count+=sub_tree_scores[i];
+            }
+            return count;
         }
 
         bool operator==(const Node &to_compare) const;
@@ -163,6 +191,8 @@ public:
     void scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score);
     void scoresInBounds(int lower_level,int higher_level,int score,int *sum_of_players,int* sum_of_players_with_score);
 
+    void getMaxAverage(int m,int * sum);
+
     ~AVLTree();
 };
 
@@ -229,10 +259,10 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
     }
     to_insert->self_scores[score]++;
     to_insert->sub_tree_scores[score]++;
+    to_insert->average=key_primary;
     Node *result = innerFind(*to_insert);
     if(result==nullptr){
         root=to_insert;
-        //root->sub_tree_scores[score]++;
         size++;
         updateBiggest();
         return;
@@ -240,6 +270,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
     if (*result == *to_insert) {
         result->sub_tree_scores[score]++;
         result->self_scores[score]++;
+        result->updateAverage();
         Node* temp=result;
         while(temp!=root){
             Node* parent = temp->parent;
@@ -247,6 +278,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
                 break;
             }
             parent->updateSubTreeScores();
+            parent->updateAverage();
             temp=temp->parent;
         }
         delete to_insert;
@@ -269,6 +301,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
             break;
         }
         parent->updateSubTreeScores();
+        parent->updateAverage();
         second_temp=second_temp->parent;
     }
     while (temp != root && !rotation) {
@@ -371,6 +404,7 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
     if(*found==*to_find){
         found->self_scores[score]--;
         found->sub_tree_scores[score]--;
+        found->updateAverage();
         if(!found->isEmptySelfScores()){
             *do_remove=false;
            return found;
@@ -510,6 +544,7 @@ void AVLTree::remove(int key_primary, int key_secondary,int score){
     if(do_remove==false){
         while(parent!=nullptr){
             parent->updateSubTreeScores();
+            parent->updateAverage();
             parent=parent->parent;
         }
         return;
@@ -517,6 +552,7 @@ void AVLTree::remove(int key_primary, int key_secondary,int score){
     while(parent!=nullptr){
         parent->updateHeight();
         parent->updateSubTreeScores();
+        parent->updateAverage();
         int current_bf = parent->getBf();
         if(current_bf==2){
             Node* left_son = parent->left;
@@ -627,6 +663,8 @@ void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
         temp->parent=current_root;
     current_root->updateHeight();
     root_left_son->updateHeight();
+    current_root->updateAverage();
+    root_left_son->updateAverage();
 }
 
 void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
@@ -658,6 +696,8 @@ void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
             temp->parent = current_root;
         current_root->updateHeight();
         root_right_son->updateHeight();
+        current_root->updateAverage();
+        root_right_son->updateAverage();
 }
 
 bool  AVLTree::Node::operator==(const AVLTree::Node& to_compare) const {
@@ -938,5 +978,31 @@ void AVLTree::scoresInBounds(int lower_level,int higher_level,int score,int *sum
     *sum_of_players-=sum_not_in_range;
     *sum_of_players_with_score-=sum_not_in_range_score;
 }
+void AVLTree::getMaxAverage(int m,int * sum){
+    int dup_m=m;
+    *sum=0;
+    Node* tmp = root;
+    while(tmp!=nullptr && m>0) {
+        if (tmp->right != nullptr) {
+            int right_count = tmp->right->getSubTreePlayersCount();
+            if (right_count <= m) {
+                *sum += right_count * tmp->right->average;
+                m -= right_count;
+            } else {
+                tmp = tmp->right;
+                continue;
+            }
+        }
+        int current_count = tmp->getPlayersCount();
+        if (current_count <= m) {
+            *sum += current_count * tmp->key_primary;
+            m -= current_count;
+        } else {
+            *sum += m * tmp->key_primary;
+            m = 0;
 
+        }
+        tmp = tmp->left;
+    }
+}
 #endif //HW1_MIVNEY_AVLTREE_H

@@ -99,8 +99,6 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
         }
     }
     else{
-        int index_group = groups_ids.find(group_id);
-        Group group = groups_array[index_group];
         group.levels_tree.scoresInBounds(lower_level, higher_level, score, &sum_of_players_in_bounds,
                                         &sum_of_players_with_score_in_bounds);
         if(lower_level<=0){
@@ -117,3 +115,33 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
      *players=(double)(sum_of_players_with_score_in_bounds/sum_of_players_in_bounds)*100;
 
 }
+void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel){
+    int total_players_count=0;
+    if(group_id==0){
+        total_players_count+=all_players_level_tree.root->getSubTreePlayersCount();
+        for(int i=1;i<=scale;i++){
+            total_players_count+=zero_level_scores[i];
+        }
+        if(total_players_count<m){
+            throw int();//Failure
+        }
+        int tmp_sum;
+        all_players_level_tree.getMaxAverage(m,&tmp_sum);
+        *avgLevel=(double)tmp_sum/m;
+
+    }else{
+        int index_group = groups_ids.find(group_id);
+        Group group = groups_array[index_group];
+        total_players_count+=group.levels_tree.root->getSubTreePlayersCount();
+        for(int i=1;i<=scale;i++){
+            total_players_count+=group.group_zero_level_scores[i];
+        }
+        if(total_players_count<m){
+            throw int();//Failure
+        }
+        int tmp_sum;
+        group.levels_tree.getMaxAverage(m,&tmp_sum);
+        *avgLevel=(double)tmp_sum/m;
+    }
+}
+
