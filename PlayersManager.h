@@ -50,7 +50,7 @@ private:
     const int initial_size=5;
     AVLTree all_players_level_tree;
     HashTable<Player> players_table;
-    Group* groups_array;
+    Group** groups_array;
     Union groups_ids;
     int* zero_level_scores;
     int k;
