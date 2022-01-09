@@ -2,7 +2,7 @@
 Union::Union(int k): k(k){
     parent=new int[k+1];
     size = new int[k+1];
-    for(int i=1;i<k;i++){
+    for(int i=1;i<=k;i++){
         parent[i]=HEAD;
         size[i]=1;
     }

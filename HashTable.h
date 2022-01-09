@@ -51,12 +51,12 @@ void HashTable<T>::insert(int key,const T& value){
     }
     while(list->next!= nullptr) {
         if(list->key==key) {
-            throw int();//AlreadyExists
+            throw AlreadyExists();//AlreadyExists
         }
         list = list->next;
     }
     if(list->key==key) {
-        throw int();
+        throw AlreadyExists();
     }
     HashTable<T>::HashTableItem* new_item =new HashTable<T>::HashTableItem(key,value);
     list->next=new_item;
@@ -82,8 +82,9 @@ void HashTable<T>::remove(int key){
     }
     while(temp->next!=nullptr){
         if(temp->next->key==key){
+            HashTableItem* to_delete = temp->next;
             temp->next=temp->next->next;
-            delete(temp->next);
+            delete to_delete;
             break;
         }
         temp=temp->next;
@@ -113,6 +114,11 @@ T* HashTable<T>::search(int key) const{
     return nullptr;//does not exist
 }
 
+//AddPlayer 1511996719 5 52 ->>> 4 ->> 9
+//AddPlayer 976756301 29 22 ->> 1 ->> 1
+//AddPlayer 1000848759 16 98 ->> 4 ->> 4
+//AddPlayer 1819072310 13 51 ->>> 0 -> 0
+//AddPlayer 660622207 15 74 ->>> 2 -> 7
 template<class T>
 void HashTable<T>::expand() {
     table_size*=expand_parameter;

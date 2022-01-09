@@ -440,21 +440,21 @@ bool AVLTree::isEmpty() const {
 
 void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
     Node *temp = root_left_son->right;
-    for(int i=0;i<scale;i++){
+    for(int i=1;i<=scale;i++){
         root_left_son->sub_tree_scores[i]=current_root->sub_tree_scores[i];
 
     }
     if(current_root->right!=nullptr){
-        for(int i=0;i<scale;i++){
+        for(int i=1;i<=scale;i++){
             current_root->sub_tree_scores[i]=current_root->right->sub_tree_scores[i];
         }
     }else{
-        for(int i=0;i<scale;i++){
+        for(int i=1;i<=scale;i++){
             current_root->sub_tree_scores[i] = current_root->self_scores[i];
         }
     }
     if(temp!=nullptr){
-        for(int i=0;i<scale;i++){
+        for(int i=1;i<=scale;i++){
             current_root->sub_tree_scores[i]+=temp->sub_tree_scores[i];
         }
     }
@@ -738,6 +738,7 @@ void AVLTree::pushArrayToTree(typename AVLTree::Node* root,typename AVLTree::Nod
 void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score){
     Node to_search(scale);
     to_search.key_primary = level;
+    to_search.key_secondary=0;
     Node* temp=root;
     while(temp!=nullptr){
         if(to_search==*temp) {
@@ -745,20 +746,28 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
                 for(int i=1;i<=scale;i++){
                     *sum_of_players+=temp->self_scores[i];
                 }
-                *sum_of_players_with_score+=temp->self_scores[score];
+                if(score>=1 && score<=scale){
+                    *sum_of_players_with_score+=temp->self_scores[score];
+                }
             }
             if(temp->left!=nullptr){
                 for(int i=1;i<=scale;i++){
                     *sum_of_players+=temp->left->sub_tree_scores[i];
                 }
-                *sum_of_players_with_score+=temp->left->sub_tree_scores[score];
+                if(score>=1 && score<=scale) {
+                    *sum_of_players_with_score += temp->left->sub_tree_scores[score];
+                }
             }
             break;
         }
         else if (to_search>*temp){
-            *sum_of_players_with_score+=temp->self_scores[score];
+            if(score>=1 && score<=scale) {
+                *sum_of_players_with_score += temp->self_scores[score];
+            }
             if(temp->left!=nullptr){
-                *sum_of_players_with_score+=temp->left->sub_tree_scores[score];
+                if(score>=1 && score<=scale) {
+                    *sum_of_players_with_score += temp->left->sub_tree_scores[score];
+                }
             }
             for(int i=1;i<=scale;i++){
                 *sum_of_players+=temp->self_scores[i];

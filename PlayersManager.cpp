@@ -14,14 +14,16 @@ PlayerManager::PlayerManager(int k,int scale): all_players_level_tree(false,scal
     }
 }
 void PlayerManager::addPlayer(int player_id,int group_id,int score){
+    static int counter=0;
+    counter++;
     if(group_id>k || group_id<=0 || player_id<=0 || score>scale || score<=0){
         throw InvalidInput();
     }
     Player player = Player(player_id,group_id,score);
-    zero_level_scores[score]++;
     if(players_table.search(player_id)!=nullptr){
         throw AlreadyExists();
     }
+    zero_level_scores[score]++;
     players_table.insert(player_id,player);//O(1)
    int real_group_id = groups_ids.find(group_id);
    groups_array[real_group_id]->group_zero_level_scores[score]++;
@@ -54,6 +56,8 @@ void PlayerManager::removePlayer(int player_id){
 }
 
 void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
+    static int counter=0;
+    counter++;
     if(player_id<=0 || level_increase<=0){
         throw InvalidInput();
     }
@@ -69,7 +73,7 @@ void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
     if(old_level==0){
         zero_level_scores[player->score]--;
         all_players_level_tree.insert(player->level,0,player->score);
-        group->group_zero_level_scores[scale]--;
+        group->group_zero_level_scores[player->score]--;
         group->levels_tree.insert(player->level,0,player->score);
     }
     else
@@ -112,9 +116,8 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
     if (group_id < 0 || group_id > k) {
         throw InvalidInput();
     }
-    if (score <= 0 || score >= scale || higher_level < 0) {
-        *players = 0;
-        return;
+    if(lower_level>higher_level){
+        throw NoPlayers();
     }
     int sum_of_players_in_bounds = 0;
     int sum_of_players_with_score_in_bounds = 0;
@@ -147,6 +150,8 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
 }
 
 void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel){
+    static int counter=0;
+    counter++;
     if(group_id>k || group_id<0 || m<=0){
         throw InvalidInput();
     }
