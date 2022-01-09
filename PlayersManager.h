@@ -32,7 +32,6 @@ public:
             }
         }
         ~Group(){
-            std::cout <<"Destructed" << std::endl;
         }
     };
 

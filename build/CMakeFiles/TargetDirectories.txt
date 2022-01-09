@@ -1,0 +1,3 @@
+C:/Users/evrih/OneDrive/Desktop/wet2mivney/build/CMakeFiles/wet2mivney.dir
+C:/Users/evrih/OneDrive/Desktop/wet2mivney/build/CMakeFiles/edit_cache.dir
+C:/Users/evrih/OneDrive/Desktop/wet2mivney/build/CMakeFiles/rebuild_cache.dir

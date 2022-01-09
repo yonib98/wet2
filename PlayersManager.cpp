@@ -108,45 +108,44 @@ void PlayerManager::changePlayerIDScore(int player_id, int new_score){
         group->levels_tree.insert(player_level,0,new_score);
     }
 }
-void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players){
-    if(group_id<0 || group_id>k){
+void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players) {
+    if (group_id < 0 || group_id > k) {
         throw InvalidInput();
     }
-    if(score<=0 || score>=scale || higher_level<0){
-        *players=0;
+    if (score <= 0 || score >= scale || higher_level < 0) {
+        *players = 0;
         return;
     }
-    int sum_of_players_in_bounds=0;
-    int sum_of_players_with_score_in_bounds=0;
-    if(group_id==0) {
+    int sum_of_players_in_bounds = 0;
+    int sum_of_players_with_score_in_bounds = 0;
+    if (group_id == 0) {
         all_players_level_tree.scoresInBounds(lower_level, higher_level, score, &sum_of_players_in_bounds,
                                               &sum_of_players_with_score_in_bounds);
-        if(lower_level<=0){
-            for(int i=1;i<=scale;i++){
-                sum_of_players_in_bounds+=zero_level_scores[i];
+        if (lower_level <= 0) {
+            for (int i = 1; i <= scale; i++) {
+                sum_of_players_in_bounds += zero_level_scores[i];
             }
-            sum_of_players_with_score_in_bounds+=zero_level_scores[score];
+            sum_of_players_with_score_in_bounds += zero_level_scores[score];
         }
-    }
-    else{
+    } else {
         int index_group = groups_ids.find(group_id);
-        Group* group = groups_array[index_group];
+        Group *group = groups_array[index_group];
         group->levels_tree.scoresInBounds(lower_level, higher_level, score, &sum_of_players_in_bounds,
-                                        &sum_of_players_with_score_in_bounds);
-        if(lower_level<=0){
-            for(int i=1;i<=scale;i++){
-                sum_of_players_in_bounds+=group->group_zero_level_scores[i];
+                                          &sum_of_players_with_score_in_bounds);
+        if (lower_level <= 0) {
+            for (int i = 1; i <= scale; i++) {
+                sum_of_players_in_bounds += group->group_zero_level_scores[i];
             }
-            sum_of_players_with_score_in_bounds+=group->group_zero_level_scores[score];
+            sum_of_players_with_score_in_bounds += group->group_zero_level_scores[score];
         }
 
-        }
-    if(sum_of_players_with_score_in_bounds==0){
+    }
+    if (sum_of_players_in_bounds == 0) {
         throw NoPlayers();
     }
-     *players=(((double)(sum_of_players_with_score_in_bounds))/sum_of_players_in_bounds)*100;
-
+    *players = (((double) (sum_of_players_with_score_in_bounds)) / sum_of_players_in_bounds) * 100;
 }
+
 void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel){
     if(group_id>k || group_id<0 || m<=0){
         throw InvalidInput();
@@ -188,8 +187,7 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
     if(first_group_index==second_group_index){
         return;
     }
-    AVLTree first_group_tree = groups_array[first_group_index]->levels_tree;
-    AVLTree second_group_tree = groups_array[second_group_index]->levels_tree;
+
     int* first_group_zero_level = groups_array[first_group_index]->group_zero_level_scores;
     int* second_group_zero_level = groups_array[second_group_index]->group_zero_level_scores;
     int merged_groups_index = groups_ids.merge(first_group_index,second_group_index);
@@ -198,11 +196,13 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
         merged_groups_zero_levels_scores[i]=first_group_zero_level[i]+second_group_zero_level[i];
     }
 
-    first_group_tree.mergeWith(second_group_tree);
     Group* group = groups_array[merged_groups_index];
-    group->levels_tree = first_group_tree;
-    first_group_tree.deleteTree();
-    second_group_tree.deleteTree();
+    if(merged_groups_index==first_group_index){
+        groups_array[first_group_index]->levels_tree.mergeWith(groups_array[second_group_index]->levels_tree);
+    }
+    else{
+        groups_array[second_group_index]->levels_tree.mergeWith(groups_array[first_group_index]->levels_tree);
+    }
     group->group_zero_level_scores=merged_groups_zero_levels_scores;
 }
 PlayerManager::~PlayerManager() {

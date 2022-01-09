@@ -656,6 +656,9 @@ void AVLTree::merge(typename AVLTree::Node** A,int na,
     }
 }
 void AVLTree::mergeWith(AVLTree& another_tree) {
+    if(another_tree.size==0){
+        return;
+    }
     int second_arr_size = another_tree.getSize();
     Node** my_arr = new Node*[size];
     Node** second_arr = new Node*[second_arr_size];
