@@ -184,6 +184,8 @@ void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double
     }
 }
 void PlayerManager::mergeGroups(int first_group, int second_group){
+    static int counter=0;
+    counter++;
     if(first_group<=0 || second_group<=0 || first_group>k || second_group>k){
         throw InvalidInput();
     }
@@ -204,9 +206,11 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
     Group* group = groups_array[merged_groups_index];
     if(merged_groups_index==first_group_index){
         groups_array[first_group_index]->levels_tree.mergeWith(groups_array[second_group_index]->levels_tree);
+        groups_array[second_group_index]->levels_tree.deleteTree();
     }
     else{
         groups_array[second_group_index]->levels_tree.mergeWith(groups_array[first_group_index]->levels_tree);
+        groups_array[first_group_index]->levels_tree.deleteTree();
     }
     group->group_zero_level_scores=merged_groups_zero_levels_scores;
 }

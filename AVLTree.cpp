@@ -208,6 +208,7 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
         found->self_scores[score]--;
         found->sub_tree_scores[score]--;
         found->updateAverage();
+        found->updateSubTreeScores();
         if(!found->isEmptySelfScores()){
             *do_remove=false;
             return found;
@@ -292,12 +293,16 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
         found->left = nullptr;
         found->right = new_node->right;
         found->updateHeight();
+        found->updateAverage();
+        found->updateSubTreeScores();
         new_node->parent->left=found;
         found->parent = new_node->parent;
 
         new_node->left = new_left_son;
         new_node->right = new_right_son;
         new_node->updateHeight();
+        found->updateAverage();
+        found->updateSubTreeScores();
         new_node->parent = new_parent;
 
         if(new_left_son!= nullptr){
@@ -440,24 +445,24 @@ bool AVLTree::isEmpty() const {
 
 void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
     Node *temp = root_left_son->right;
-    for(int i=1;i<=scale;i++){
-        root_left_son->sub_tree_scores[i]=current_root->sub_tree_scores[i];
-
-    }
-    if(current_root->right!=nullptr){
-        for(int i=1;i<=scale;i++){
-            current_root->sub_tree_scores[i]=current_root->right->sub_tree_scores[i];
-        }
-    }else{
-        for(int i=1;i<=scale;i++){
-            current_root->sub_tree_scores[i] = current_root->self_scores[i];
-        }
-    }
-    if(temp!=nullptr){
-        for(int i=1;i<=scale;i++){
-            current_root->sub_tree_scores[i]+=temp->sub_tree_scores[i];
-        }
-    }
+//    for(int i=1;i<=scale;i++){
+//        root_left_son->sub_tree_scores[i]=current_root->sub_tree_scores[i];
+//
+//    }
+//    if(current_root->right!=nullptr){
+//        for(int i=1;i<=scale;i++){
+//            current_root->sub_tree_scores[i]=current_root->right->sub_tree_scores[i];
+//        }
+//    }else{
+//        for(int i=1;i<=scale;i++){
+//            current_root->sub_tree_scores[i] = current_root->self_scores[i];
+//        }
+//    }
+//    if(temp!=nullptr){
+//        for(int i=1;i<=scale;i++){
+//            current_root->sub_tree_scores[i]+=temp->sub_tree_scores[i];
+//        }
+//    }
     root_left_son->right = (current_root);
     root_left_son->parent=current_root->parent;
     current_root->parent=root_left_son;
@@ -468,29 +473,31 @@ void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
     root_left_son->updateHeight();
     current_root->updateAverage();
     root_left_son->updateAverage();
+    current_root->updateSubTreeScores();
+    root_left_son->updateSubTreeScores();
 }
 
 void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
 
     Node *temp = root_right_son->left;
-    for (int i = 1; i <= scale; i++) {
-        root_right_son->sub_tree_scores[i] = current_root->sub_tree_scores[i];
-
-    }
-    if (current_root->left != nullptr) {
-        for (int i = 1; i <= scale; i++) {
-            current_root->sub_tree_scores[i] = current_root->left->sub_tree_scores[i];
-        }
-    } else {
-        for (int i = 1; i <= scale; i++) {
-            current_root->sub_tree_scores[i] = current_root->self_scores[i];
-        }
-    }
-    if (temp != nullptr) {
-        for (int i = 1; i <= scale; i++) {
-            current_root->sub_tree_scores[i] += temp->sub_tree_scores[i];
-        }
-    }
+//    for (int i = 1; i <= scale; i++) {
+//        root_right_son->sub_tree_scores[i] = current_root->sub_tree_scores[i];
+//
+//    }
+//    if (current_root->left != nullptr) {
+//        for (int i = 1; i <= scale; i++) {
+//            current_root->sub_tree_scores[i] = current_root->left->sub_tree_scores[i];
+//        }
+//    } else {
+//        for (int i = 1; i <= scale; i++) {
+//            current_root->sub_tree_scores[i] = current_root->self_scores[i];
+//        }
+//    }
+//    if (temp != nullptr) {
+//        for (int i = 1; i <= scale; i++) {
+//            current_root->sub_tree_scores[i] += temp->sub_tree_scores[i];
+//        }
+//    }
     root_right_son->left = (current_root);
     root_right_son->parent = current_root->parent;
     current_root->parent = root_right_son;
@@ -501,6 +508,8 @@ void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
     root_right_son->updateHeight();
     current_root->updateAverage();
     root_right_son->updateAverage();
+    current_root->updateSubTreeScores();
+    root_right_son->updateSubTreeScores();
 }
 
 bool  AVLTree::Node::operator==(const AVLTree::Node& to_compare) const {
@@ -515,6 +524,7 @@ typename AVLTree::Node& AVLTree::Node::operator=(const Node &to_copy) {
     key_secondary=to_copy.key_secondary;
     for(int i=1;i<=scale;i++){
         self_scores[i]=to_copy.self_scores[i];
+        sub_tree_scores[i]=to_copy.sub_tree_scores[i];
     }
     return *this;
 }
@@ -569,6 +579,8 @@ typename AVLTree::Node* AVLTree::treeCopy(typename AVLTree::Node* root){
         node->right->parent=node;
     }
     node->updateHeight();
+    node->updateAverage();
+    node->updateSubTreeScores();
     return node;
 }
 
@@ -655,6 +667,35 @@ void AVLTree::merge(typename AVLTree::Node** A,int na,
         C[ic]=B[ib];
     }
 }
+int AVLTree::deleteDuplicates(AVLTree::Node** arr,int n){
+    if(n==0){
+        return 0;
+    }
+    int new_size=0;
+    Node* previous = arr[0];
+    for(int i=1,j=1;i<n;i++){
+        Node* next = arr[i];
+        if(*previous==*next){
+           for(int k=1;k<=scale;k++){
+               previous->self_scores[k]+=next->self_scores[k];
+               previous->sub_tree_scores[k]+=next->sub_tree_scores[k];
+           }
+            arr[i]=nullptr;
+            new_size++;
+           previous=arr[++i];
+        }
+        else{
+            new_size++;
+            previous=next;
+        }
+
+    }
+    if(previous!=nullptr){
+        new_size++;
+    }
+    return new_size;
+}
+
 void AVLTree::mergeWith(AVLTree& another_tree) {
     if(another_tree.size==0){
         return;
@@ -664,14 +705,20 @@ void AVLTree::mergeWith(AVLTree& another_tree) {
     Node** second_arr = new Node*[second_arr_size];
     int count=0;
     this->exportToNodeArray(this->root,my_arr,&count);
-
     count=0;
     another_tree.exportToNodeArray(another_tree.root,second_arr,&count);
 
-    int merged_arr_size = size+second_arr_size;
-    Node** merge_arr = new Node*[merged_arr_size];
-    merge(my_arr,size,second_arr,another_tree.getSize(),merge_arr);
+    int merged_arr_duplicates_size = size+second_arr_size;
+    Node** merge_arr_duplicates = new Node*[merged_arr_duplicates_size];
+    merge(my_arr,size,second_arr,another_tree.getSize(),merge_arr_duplicates);
 
+    int merged_arr_size = deleteDuplicates(merge_arr_duplicates,merged_arr_duplicates_size);
+    Node** merge_arr = new Node*[merged_arr_size];
+    for(int i=0, j=0;i<merged_arr_duplicates_size;i++){
+        if(merge_arr_duplicates[i]!=nullptr){
+            merge_arr[j++]=merge_arr_duplicates[i];
+        }
+    }
     AVLTree almost_complete_tree = AVLTree::almostCompleteTree(this->use_secondary_key,merged_arr_size,scale);
     int index=0;
     almost_complete_tree.pushArrayToTree(almost_complete_tree.root,merge_arr,&index);
@@ -681,6 +728,7 @@ void AVLTree::mergeWith(AVLTree& another_tree) {
     delete[] my_arr;
     delete[] second_arr;
     delete[] merge_arr;
+    delete[] merge_arr_duplicates;
 }
 typename AVLTree::Node* AVLTree::createCompleteTree(typename AVLTree::Node* root,int h,int scale){
     root= new typename AVLTree::Node(scale);
@@ -692,6 +740,8 @@ typename AVLTree::Node* AVLTree::createCompleteTree(typename AVLTree::Node* root
     root->right=createCompleteTree(root->right,h-1,scale);
     root->right->parent=root;
     root->updateHeight();
+    root->updateAverage();
+    root->updateSubTreeScores();
     return root;
 }
 
@@ -831,3 +881,4 @@ int AVLTree::getTreePlayersCount(){
     }
     return count;
 }
+

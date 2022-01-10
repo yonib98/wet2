@@ -196,6 +196,7 @@ public:
     int getTreePlayersCount();
 
     ~AVLTree();
+    int deleteDuplicates(Node** arr,int n);
 };
 
 #endif //HW1_MIVNEY_AVLTREE_H

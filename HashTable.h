@@ -121,6 +121,7 @@ T* HashTable<T>::search(int key) const{
 //AddPlayer 660622207 15 74 ->>> 2 -> 7
 template<class T>
 void HashTable<T>::expand() {
+    int old_table_size=table_size;
     table_size*=expand_parameter;
     HashTable<T>::HashTableItem** old_lists_array = lists_array;
     HashTable<T>::HashTableItem** new_lists_array = new HashTable<T>::HashTableItem*[table_size];
@@ -129,7 +130,7 @@ void HashTable<T>::expand() {
     }
     lists_array=new_lists_array;
     current_size=0;
-    for(int i=0;i<table_size/expand_parameter;i++) {
+    for(int i=0;i<old_table_size;i++) {
         HashTable<T>::HashTableItem* list = old_lists_array[i];
         HashTable<T>::HashTableItem* tmp = list;
         while (tmp != nullptr) {
@@ -145,6 +146,7 @@ void HashTable<T>::expand() {
 
 template <class T>
 void HashTable<T>::shrink() {
+    int old_table_size=table_size;
     table_size/=expand_parameter;
     HashTable<T>::HashTableItem** old_lists_array = lists_array;
     HashTable<T>::HashTableItem** new_lists_array = new HashTable<T>::HashTableItem*[table_size];
@@ -153,7 +155,7 @@ void HashTable<T>::shrink() {
     }
     lists_array=new_lists_array;
     current_size=0;
-    for(int i=0;i<table_size*expand_parameter;i++) {
+    for(int i=0;i<old_table_size;i++) {
         HashTable<T>::HashTableItem* list = old_lists_array[i];
         HashTable<T>::HashTableItem* tmp = list;
         while (tmp != nullptr) {

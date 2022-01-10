@@ -17,5 +17,9 @@ int main(){
     t2.insert(200,0,3);
     t2.insert(300,0,3);
     t.mergeWith(t2);
+    t.insert(250,0,3);
+    t.insert(275,0,3);
+    t.insert(400,0,3);
+    t.remove(275,0,3);
 
 }
