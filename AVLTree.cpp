@@ -671,29 +671,21 @@ int AVLTree::deleteDuplicates(AVLTree::Node** arr,int n){
     if(n==0){
         return 0;
     }
-    int new_size=0;
-    Node* previous = arr[0];
-    for(int i=1,j=1;i<n;i++){
-        Node* next = arr[i];
-        if(*previous==*next){
-           for(int k=1;k<=scale;k++){
-               previous->self_scores[k]+=next->self_scores[k];
-               previous->sub_tree_scores[k]+=next->sub_tree_scores[k];
-           }
-            arr[i]=nullptr;
-            new_size++;
-           previous=arr[++i];
+    int duplicates_cleared=0;
+    for(int i=1;i<n;i++) {
+        Node *previous = arr[i - 1];
+        Node *next = arr[i];
+        if (*previous == *next) {
+            for (int k = 1; k <= scale; k++) {
+                previous->self_scores[k] += next->self_scores[k];
+                previous->sub_tree_scores[k] += next->sub_tree_scores[k];
+            }
+            arr[i] = nullptr;
+            duplicates_cleared++;
+            i++;
         }
-        else{
-            new_size++;
-            previous=next;
-        }
-
     }
-    if(previous!=nullptr){
-        new_size++;
-    }
-    return new_size;
+    return n-duplicates_cleared;
 }
 
 void AVLTree::mergeWith(AVLTree& another_tree) {
@@ -782,8 +774,12 @@ void AVLTree::pushArrayToTree(typename AVLTree::Node* root,typename AVLTree::Nod
     }
     pushArrayToTree(root->left,arr,index);
     *root=*(arr[*index]);
+    root->updateSubTreeScores();
+    root->updateAverage();
     (*index)++;
     pushArrayToTree(root->right,arr,index);
+    root->updateSubTreeScores();
+    root->updateAverage();
 }
 void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score){
     Node to_search(scale);
@@ -791,6 +787,7 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
     to_search.key_secondary=0;
     Node* temp=root;
     while(temp!=nullptr){
+        temp->updateSubTreeScores();
         if(to_search==*temp) {
             if(lower_bound==false){
                 for(int i=1;i<=scale;i++){
@@ -801,6 +798,7 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
                 }
             }
             if(temp->left!=nullptr){
+                temp->left->updateSubTreeScores();
                 for(int i=1;i<=scale;i++){
                     *sum_of_players+=temp->left->sub_tree_scores[i];
                 }
@@ -815,6 +813,8 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
                 *sum_of_players_with_score += temp->self_scores[score];
             }
             if(temp->left!=nullptr){
+                temp->left->updateSubTreeScores();
+
                 if(score>=1 && score<=scale) {
                     *sum_of_players_with_score += temp->left->sub_tree_scores[score];
                 }
@@ -822,6 +822,7 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
             for(int i=1;i<=scale;i++){
                 *sum_of_players+=temp->self_scores[i];
                 if(temp->left!=nullptr){
+                    temp->left->updateSubTreeScores();
                     *sum_of_players+=temp->left->sub_tree_scores[i];
                 }
             }
@@ -844,14 +845,15 @@ void AVLTree::scoresInBounds(int lower_level,int higher_level,int score,int *sum
     *sum_of_players_with_score-=sum_not_in_range_score;
 }
 void AVLTree::getMaxAverage(int m,int * sum){
-    int dup_m=m;
     *sum=0;
     Node* tmp = root;
     while(tmp!=nullptr && m>0) {
         if (tmp->right != nullptr) {
+            tmp->right->updateAverage();
+            tmp->right->updateSubTreeScores();
             int right_count = tmp->right->getSubTreePlayersCount();
             if (right_count <= m) {
-                *sum += right_count * tmp->right->average;
+                *sum += tmp->right->average*right_count;
                 m -= right_count;
             } else {
                 tmp = tmp->right;

@@ -7,6 +7,11 @@ Union::Union(int k): k(k){
         size[i]=1;
     }
 }
+Union::~Union(){
+    delete[] parent;
+    delete[] size;
+}
+
 int Union::find(int i){
     int copy_i=i;
     if(parent[i]==HEAD){

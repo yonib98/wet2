@@ -1,6 +1,6 @@
 #include "PlayersManager.h"
 #include "Exceptions.h"
-PlayerManager::PlayerManager(int k,int scale): all_players_level_tree(false,scale),k(k),scale(scale),players_table(initial_size),groups_ids(k) {
+PlayerManager::PlayerManager(int k,int scale): all_players_level_tree(false,scale),players_table(initial_size),groups_ids(k),k(k),scale(scale) {
     if(k<=0 || scale<=0 || scale>200){
         throw InvalidInput();
     }
@@ -212,12 +212,12 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
         groups_array[second_group_index]->levels_tree.mergeWith(groups_array[first_group_index]->levels_tree);
         groups_array[first_group_index]->levels_tree.deleteTree();
     }
+    delete [] group->group_zero_level_scores;
     group->group_zero_level_scores=merged_groups_zero_levels_scores;
 }
 PlayerManager::~PlayerManager() {
     for(int i=1;i<=k;i++){
         groups_array[i]->levels_tree.deleteTree();
-        delete [] groups_array[i]->group_zero_level_scores;
         delete groups_array[i];
     }
     delete [] groups_array;

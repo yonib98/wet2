@@ -32,6 +32,7 @@ public:
             }
         }
         ~Group(){
+            delete[] group_zero_level_scores;
         }
     };
 

@@ -1,5 +1,6 @@
 #ifndef WET2_HASHTABLE_H
 #define WET2_HASHTABLE_H
+#include "Exceptions.h"
 template<class T>
 class HashTable{
 private:
@@ -137,9 +138,10 @@ void HashTable<T>::expand() {
             int key = tmp->key;
             T value = tmp->value;
             insert(key, value);
+            HashTable<T>::HashTableItem* to_delete=tmp;
             tmp = tmp->next;
+            delete to_delete;
         }
-        delete list;
     }
     delete [] old_lists_array;
 }
@@ -162,9 +164,11 @@ void HashTable<T>::shrink() {
             int key = tmp->key;
             T value = tmp->value;
             insert(key, value);
+            HashTable<T>::HashTableItem* to_delete=tmp;
             tmp = tmp->next;
+            delete to_delete;
+
         }
-        delete list;
     }
     delete [] old_lists_array;
 }

@@ -10,6 +10,7 @@ public:
     Union(int k);
     int find(int i);
     int merge(int p,int q);
+    ~Union();
 };
 
 #endif //WET2_UNION_H

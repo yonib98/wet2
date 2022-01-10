@@ -19,7 +19,7 @@ class AVLTree {
         int height;
         friend class AVLTree;
     public:
-        Node(int scale): parent(nullptr),left(nullptr),right(nullptr),height(0),scale(scale),average(0){
+        Node(int scale): scale(scale),average(0),parent(nullptr),left(nullptr),right(nullptr),height(0){
             //sub_tree_scores = data;
             sub_tree_scores=new int[scale+1];
             self_scores=new int[scale+1];
@@ -101,6 +101,8 @@ class AVLTree {
 
         Node& operator=(const Node& to_copy);
         ~Node(){
+            delete[] sub_tree_scores;
+            delete[] self_scores;
             parent=nullptr;
             left=nullptr;
             right=nullptr;
