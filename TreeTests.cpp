@@ -2,24 +2,18 @@
 int main(){
     AVLTree t = AVLTree(false,10);
     t.insert(100,0,3);
-    t.insert(100,0,4);
-    t.insert(100,0,5);
     t.insert(200,0,4);
-    t.insert(200,0,5);
-    t.insert(200,0,3);
-    t.insert(300,0,3);
-    AVLTree t2 = AVLTree(false,10);
-    t2.insert(100,0,3);
-    t2.insert(100,0,4);
-    t2.insert(100,0,5);
-    t2.insert(200,0,4);
-    t2.insert(200,0,5);
-    t2.insert(200,0,3);
-    t2.insert(300,0,3);
-    t.mergeWith(t2);
-    t.insert(250,0,3);
-    t.insert(275,0,3);
-    t.insert(400,0,3);
-    t.remove(275,0,3);
+//    t.insert(300,0,6);
+//    t.insert(400,0,6);
+//    t.insert(350,0,6);
+//    t.insert(370,0,7);
+//    t.insert(380,0,8);
+//    t.insert(390,0,8);
+//    t.insert(410,0,2);
+    t.insert(500,0,2);
+    t.insert(420,0,2);
+    t.insert(415,0,2);
+    t.remove(420,0,2);
+    t.remove(390,0,8);
 
 }

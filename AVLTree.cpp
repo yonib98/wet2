@@ -62,7 +62,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
     }
     to_insert->self_scores[score]++;
     to_insert->sub_tree_scores[score]++;
-    to_insert->average=key_primary;
+    to_insert->sub_tree_sum_of_levels+=key_primary;
     Node *result = innerFind(*to_insert);
     if(result==nullptr){
         root=to_insert;
@@ -73,7 +73,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
     if (*result == *to_insert) {
         result->sub_tree_scores[score]++;
         result->self_scores[score]++;
-        result->updateAverage();
+        result->updateSubTreeSumOfLevels();
         Node* temp=result;
         while(temp!=root){
             Node* parent = temp->parent;
@@ -81,7 +81,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
                 break;
             }
             parent->updateSubTreeScores();
-            parent->updateAverage();
+            parent->updateSubTreeSumOfLevels();
             temp=temp->parent;
         }
         delete to_insert;
@@ -104,7 +104,7 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
             break;
         }
         parent->updateSubTreeScores();
-        parent->updateAverage();
+        parent->updateSubTreeSumOfLevels();
         second_temp=second_temp->parent;
     }
     while (temp != root && !rotation) {
@@ -191,6 +191,8 @@ void AVLTree::insert(int key_primary,int key_secondary,int score) {
     }
     size++;
     updateBiggest();
+    root->updateSubTreeScores();
+    root->updateSubTreeSumOfLevels();
 }
 typename AVLTree::Node* AVLTree::findSequential( typename AVLTree::Node* p){
     p=p->right;
@@ -207,7 +209,7 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
     if(*found==*to_find){
         found->self_scores[score]--;
         found->sub_tree_scores[score]--;
-        found->updateAverage();
+        found->updateSubTreeSumOfLevels();
         found->updateSubTreeScores();
         if(!found->isEmptySelfScores()){
             *do_remove=false;
@@ -277,6 +279,8 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
             found->left->parent=new_node;
             new_node->parent=parent;
             delete found;
+            new_node->updateSubTreeScores();
+            new_node->updateSubTreeSumOfLevels();
             if(parent==nullptr){
                 return new_node;
             }
@@ -293,7 +297,7 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
         found->left = nullptr;
         found->right = new_node->right;
         found->updateHeight();
-        found->updateAverage();
+        found->updateSubTreeSumOfLevels();
         found->updateSubTreeScores();
         new_node->parent->left=found;
         found->parent = new_node->parent;
@@ -301,7 +305,7 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
         new_node->left = new_left_son;
         new_node->right = new_right_son;
         new_node->updateHeight();
-        found->updateAverage();
+        found->updateSubTreeSumOfLevels();
         found->updateSubTreeScores();
         new_node->parent = new_parent;
 
@@ -341,6 +345,9 @@ typename AVLTree::Node* AVLTree::sequentialRemove(Node* root){
 
 
 void AVLTree::remove(int key_primary, int key_secondary,int score){
+    if(key_primary==0){
+        return;
+    }
     Node to_find = Node(scale);
     to_find.key_primary = key_primary;
     if (use_secondary_key) {
@@ -352,7 +359,7 @@ void AVLTree::remove(int key_primary, int key_secondary,int score){
     if(do_remove==false){
         while(parent!=nullptr){
             parent->updateSubTreeScores();
-            parent->updateAverage();
+            parent->updateSubTreeSumOfLevels();
             parent=parent->parent;
         }
         return;
@@ -360,7 +367,7 @@ void AVLTree::remove(int key_primary, int key_secondary,int score){
     while(parent!=nullptr){
         parent->updateHeight();
         parent->updateSubTreeScores();
-        parent->updateAverage();
+        parent->updateSubTreeSumOfLevels();
         int current_bf = parent->getBf();
         if(current_bf==2){
             Node* left_son = parent->left;
@@ -427,13 +434,16 @@ void AVLTree::remove(int key_primary, int key_secondary,int score){
                     }else{
                         parent->parent->right = right_left_son;
                     }
-
                 }
                 leftRotation(parent, right_left_son);
                 //RL
             }
         }
         parent=parent->parent;
+        if(parent!= nullptr) {
+            parent->updateSubTreeScores();
+            parent->updateSubTreeSumOfLevels();
+        }
     }
     updateBiggest();
     size--;
@@ -471,10 +481,12 @@ void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
         temp->parent=current_root;
     current_root->updateHeight();
     root_left_son->updateHeight();
-    current_root->updateAverage();
-    root_left_son->updateAverage();
     current_root->updateSubTreeScores();
     root_left_son->updateSubTreeScores();
+    current_root->updateSubTreeSumOfLevels();
+    root_left_son->updateSubTreeSumOfLevels();
+
+
 }
 
 void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
@@ -502,12 +514,13 @@ void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
     root_right_son->parent = current_root->parent;
     current_root->parent = root_right_son;
     current_root->right = temp;
-    if (temp != nullptr)
+    if (temp != nullptr) {
         temp->parent = current_root;
+    }
     current_root->updateHeight();
     root_right_son->updateHeight();
-    current_root->updateAverage();
-    root_right_son->updateAverage();
+    current_root->updateSubTreeSumOfLevels();
+    root_right_son->updateSubTreeSumOfLevels();
     current_root->updateSubTreeScores();
     root_right_son->updateSubTreeScores();
 }
@@ -526,6 +539,7 @@ typename AVLTree::Node& AVLTree::Node::operator=(const Node &to_copy) {
         self_scores[i]=to_copy.self_scores[i];
         sub_tree_scores[i]=to_copy.sub_tree_scores[i];
     }
+    sub_tree_sum_of_levels=to_copy.sub_tree_sum_of_levels;
     return *this;
 }
 bool AVLTree::Node::operator>(const typename AVLTree::Node &to_compare) const {
@@ -574,12 +588,15 @@ typename AVLTree::Node* AVLTree::treeCopy(typename AVLTree::Node* root){
     if(node->left!=nullptr){
         node->left->parent=node;
     }
+    node->updateHeight();
+    node->updateSubTreeSumOfLevels();
+    node->updateSubTreeScores();
     node->right= treeCopy(root->right);
     if(node->right!=nullptr){
         node->right->parent=node;
     }
     node->updateHeight();
-    node->updateAverage();
+    node->updateSubTreeSumOfLevels();
     node->updateSubTreeScores();
     return node;
 }
@@ -729,10 +746,13 @@ typename AVLTree::Node* AVLTree::createCompleteTree(typename AVLTree::Node* root
     }
     root->left=createCompleteTree(root->left,h-1,scale);
     root->left->parent=root;
+    root->updateHeight();
+    root->updateSubTreeSumOfLevels();
+    root->updateSubTreeScores();
     root->right=createCompleteTree(root->right,h-1,scale);
     root->right->parent=root;
     root->updateHeight();
-    root->updateAverage();
+    root->updateSubTreeSumOfLevels();
     root->updateSubTreeScores();
     return root;
 }
@@ -775,11 +795,11 @@ void AVLTree::pushArrayToTree(typename AVLTree::Node* root,typename AVLTree::Nod
     pushArrayToTree(root->left,arr,index);
     *root=*(arr[*index]);
     root->updateSubTreeScores();
-    root->updateAverage();
+    root->updateSubTreeSumOfLevels();
     (*index)++;
     pushArrayToTree(root->right,arr,index);
     root->updateSubTreeScores();
-    root->updateAverage();
+    root->updateSubTreeSumOfLevels();
 }
 void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of_players,int* sum_of_players_with_score){
     Node to_search(scale);
@@ -849,11 +869,9 @@ void AVLTree::getMaxAverage(int m,int * sum){
     Node* tmp = root;
     while(tmp!=nullptr && m>0) {
         if (tmp->right != nullptr) {
-            tmp->right->updateAverage();
-            tmp->right->updateSubTreeScores();
             int right_count = tmp->right->getSubTreePlayersCount();
             if (right_count <= m) {
-                *sum += tmp->right->average*right_count;
+                *sum += tmp->right->sub_tree_sum_of_levels;
                 m -= right_count;
             } else {
                 tmp = tmp->right;

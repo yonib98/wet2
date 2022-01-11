@@ -12,14 +12,15 @@ class AVLTree {
         int scale;
         int* sub_tree_scores;
         int* self_scores;
-        double average;
+//        double average;
+        int sub_tree_sum_of_levels;
         Node *parent;
         Node *left;
         Node *right;
         int height;
         friend class AVLTree;
     public:
-        Node(int scale): scale(scale),average(0),parent(nullptr),left(nullptr),right(nullptr),height(0){
+        Node(int scale): scale(scale),sub_tree_sum_of_levels(0),parent(nullptr),left(nullptr),right(nullptr),height(0){
             //sub_tree_scores = data;
             sub_tree_scores=new int[scale+1];
             self_scores=new int[scale+1];
@@ -38,21 +39,31 @@ class AVLTree {
             int rheight = right ==nullptr? -1:right->height;
             height = std::max(lheight,rheight)+1;
         }
-        void updateAverage(){
-            int count_left = left == nullptr? 0:left->getSubTreePlayersCount();
-            int count_right = right == nullptr? 0:right->getSubTreePlayersCount();
-            if(count_left+count_right==0){
-                average=key_primary;
-            }else{
-                average=count_left==0? 0:left->average*count_left;
-                average+=count_right==0? 0:right->average*count_right;
-                int count_current = getPlayersCount();
-                average+=count_current*key_primary;
-                average=(double)average/(count_left+count_right+count_current);
+        void updateSubTreeSumOfLevels(){
+            int sum=left== nullptr? 0:left->sub_tree_sum_of_levels;
+            sum+=right== nullptr?0:right->sub_tree_sum_of_levels;
+            int counter_current_node=0;
+            for(int i=1;i<=scale;i++){
+                counter_current_node+=self_scores[i];
             }
+            sum+=(counter_current_node)*(key_primary);
+            sub_tree_sum_of_levels=sum;
         }
+//        void updateAverage(){
+//            int count_left = left == nullptr? 0:left->getSubTreePlayersCount();
+//            int count_right = right == nullptr? 0:right->getSubTreePlayersCount();
+//            if(count_left+count_right==0){
+//                average=key_primary;
+//            }else{
+//                average=count_left==0? 0:left->average*count_left;
+//                average+=count_right==0? 0:right->average*count_right;
+//                int count_current = getPlayersCount();
+//                average+=count_current*key_primary;
+//                average=(double)average/(count_left+count_right+count_current);
+//            }
+//        }
         void updateSubTreeScores(){
-           for(int i=1;i<scale+1;i++){
+           for(int i=1;i<=scale;i++){
                sub_tree_scores[i] = left==nullptr? self_scores[i]:left->sub_tree_scores[i]+self_scores[i];
                sub_tree_scores[i] += right== nullptr? 0:right->sub_tree_scores[i];
            }

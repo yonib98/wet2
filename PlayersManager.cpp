@@ -56,12 +56,14 @@ void PlayerManager::removePlayer(int player_id){
 }
 
 void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
-    static int counter=0;
-    counter++;
+    if(player_id==1271352989 ){
+        int x=1;
+    }
     if(player_id<=0 || level_increase<=0){
         throw InvalidInput();
     }
     Player* player=players_table.search(player_id);
+    int count=all_players_level_tree.getTreePlayersCount();
     if(player==nullptr){
         throw DoesNotExist(); //Does not exist
     }
@@ -150,8 +152,9 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
 }
 
 void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel){
-    static int counter=0;
-    counter++;
+    if(group_id==0 && m==21){
+        int x=1;
+    }
     if(group_id>k || group_id<0 || m<=0){
         throw InvalidInput();
     }
