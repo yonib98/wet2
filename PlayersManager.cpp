@@ -218,6 +218,36 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
     delete [] group->group_zero_level_scores;
     group->group_zero_level_scores=merged_groups_zero_levels_scores;
 }
+void PlayerManager::GetPlayersBound(int group_id, int score, int m,
+                     int * LowerBoundPlayers, int * HigherBoundPlayers){
+    if(group_id<0 || group_id > k || m<0 || score<=0 || score>scale){
+        throw InvalidInput();
+    }
+    *LowerBoundPlayers=0;
+    *HigherBoundPlayers=0;
+    if(group_id==0){
+        int players_without_level_0=all_players_level_tree.getTreePlayersCount();
+        if(players_without_level_0>=m){
+            all_players_level_tree.getScoresBounds(score,m,LowerBoundPlayers,HigherBoundPlayers);
+        }else{
+            all_players_level_tree.getScoresBounds(score,players_without_level_0,LowerBoundPlayers,HigherBoundPlayers);
+            int zero_level_count=0;
+            for(int i=1;i<=scale;i++){
+                zero_level_count+=zero_level_scores[i];
+            }
+            *HigherBoundPlayers+=zero_level_scores[score];
+            int num_of_players_to_add = m-players_without_level_0;
+            if(num_of_players_to_add-zero_level_scores[score]>=0){
+                *LowerBoundPlayers+=0;
+            }else{
+                *LowerBoundPlayers+=zero_level_scores[score]-num_of_players_to_add;
+            }
+        }
+
+    }else{
+
+    }
+}
 PlayerManager::~PlayerManager() {
     for(int i=1;i<=k;i++){
         groups_array[i]->levels_tree.deleteTree();

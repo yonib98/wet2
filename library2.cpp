@@ -153,8 +153,25 @@ StatusType AverageHighestPlayerLevelByGroup(void *DS, int GroupID, int m, double
 
 StatusType GetPlayersBound(void *DS, int GroupID, int score, int m,
                            int * LowerBoundPlayers, int * HigherBoundPlayers){
+    if(DS==NULL || LowerBoundPlayers==NULL || HigherBoundPlayers==NULL){
+        throw InvalidInput();
+    }
+    try{
+        PlayerManager* pm=(PlayerManager*)DS;
+        pm->getPlayersBound(GroupID,score,m,LowerBoundPlayers,HigherBoundPlayers);
+    }
+    catch(InvalidInput& e){
+        return INVALID_INPUT;
+    }
+    catch(std::bad_alloc& e){
+        return ALLOCATION_ERROR;
+    }
+    catch (NoPlayers& e){
+        return FAILURE;
+    }
     return SUCCESS;
 }
+
 
 void Quit(void** DS){
     if(DS==NULL){

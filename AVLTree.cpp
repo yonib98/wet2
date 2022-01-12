@@ -902,3 +902,39 @@ int AVLTree::getTreePlayersCount(){
     return count;
 }
 
+void AVLTree::getScoresBounds (int score, int m,int * LowerBoundPlayers, int * HigherBoundPlayers){
+    Node* tmp = root;
+    while(tmp!=nullptr && m>0){
+        if(tmp->right!=nullptr){
+            int right_players_count = tmp->right->getSubTreePlayersCount();
+            if(right_players_count<=m){
+                *LowerBoundPlayers+=tmp->right->sub_tree_scores[score];
+                *HigherBoundPlayers+=tmp->right->sub_tree_scores[score];
+                m-=right_players_count;
+            }
+            else{
+                tmp = tmp->right;
+                continue;
+            }
+        }
+        int current_count= tmp->getPlayersCount();
+        if(current_count<=m){
+            *LowerBoundPlayers+=tmp->self_scores[score];
+            *HigherBoundPlayers+=tmp->self_scores[score];
+            m-=current_count;
+        }else{
+            int players_with_score = tmp->self_scores[score];
+            int players_without_score = current_count-players_with_score;
+            int left_to_add  = m-players_without_score;
+            *HigherBoundPlayers+=players_with_score;
+            if(left_to_add<=0){
+                *LowerBoundPlayers+=0;
+            }else{
+                *LowerBoundPlayers+=left_to_add;
+            }
+            m=0;
+        }
+        tmp=tmp->left;
+    }
+}
+

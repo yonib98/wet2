@@ -210,6 +210,7 @@ public:
 
     ~AVLTree();
     int deleteDuplicates(Node** arr,int n);
+    void getScoresBounds (int score, int m,int * LowerBoundPlayers, int * HigherBoundPlayers);
 };
 
 #endif //HW1_MIVNEY_AVLTREE_H

@@ -44,6 +44,8 @@ public:
     void getPercentOfPlayersWithScoreInBounds (int group_id, int score, int lower_level, int higher_level, double * players);
     void averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel);
     void mergeGroups(int first_group, int second_group);
+    void GetPlayersBound(int group_id, int score, int m,
+                    int * LowerBoundPlayers, int * HigherBoundPlayers);
     ~PlayerManager();
 
 private:
