@@ -6,6 +6,7 @@ AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 0.00
 AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
@@ -13,15 +14,18 @@ AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 AddPlayer: SUCCESS
+GetPlayersBound: 0 0
 ChangePlayerIDScore: INVALID_INPUT
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 11.11
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: INVALID_INPUT
 AddPlayer: INVALID_INPUT
 AverageHighestPlayerLevelByGroup: 1.00
@@ -34,6 +38,7 @@ MergeGroups: SUCCESS
 ChangePlayerIDScore: FAILURE
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
 GetPercentOfPlayersWithScoreInBounds: 9.09
 ChangePlayerIDScore: SUCCESS
 AddPlayer: SUCCESS
@@ -55,6 +60,7 @@ RemovePlayer: FAILURE
 IncreasePlayerIDLevel: FAILURE
 MergeGroups: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 MergeGroups: INVALID_INPUT
@@ -66,6 +72,7 @@ RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 MergeGroups: SUCCESS
 AddPlayer: FAILURE
 AddPlayer: SUCCESS
@@ -84,6 +91,7 @@ ChangePlayerIDScore: SUCCESS
 MergeGroups: SUCCESS
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 MergeGroups: SUCCESS
 MergeGroups: INVALID_INPUT
@@ -132,12 +140,15 @@ GetPercentOfPlayersWithScoreInBounds: 100.00
 GetPercentOfPlayersWithScoreInBounds: 15.38
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 25.00
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 20.00
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 5.31
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 100.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
 AverageHighestPlayerLevelByGroup: INVALID_INPUT
@@ -153,12 +164,15 @@ AverageHighestPlayerLevelByGroup: 6.62
 MergeGroups: SUCCESS
 MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: FAILURE
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 6.00
@@ -167,10 +181,14 @@ AverageHighestPlayerLevelByGroup: 4.00
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 4.38
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 0.00
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 0.00
 AverageHighestPlayerLevelByGroup: 5.18
+GetPlayersBound: 1 1
 AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 3.17
 GetPercentOfPlayersWithScoreInBounds: 0.00
@@ -201,6 +219,7 @@ MergeGroups: INVALID_INPUT
 MergeGroups: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 100.00
 AddPlayer: SUCCESS
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 14.00
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: INVALID_INPUT
@@ -216,6 +235,7 @@ IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: FAILURE
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
 AddPlayer: SUCCESS
@@ -237,10 +257,12 @@ IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 MergeGroups: SUCCESS
 RemovePlayer: FAILURE
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: FAILURE
@@ -250,6 +272,7 @@ MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 100.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
 AddPlayer: FAILURE
 RemovePlayer: SUCCESS
 MergeGroups: SUCCESS
@@ -278,6 +301,7 @@ ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 RemovePlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
 ChangePlayerIDScore: FAILURE
@@ -289,6 +313,7 @@ GetPercentOfPlayersWithScoreInBounds: 0.00
 GetPercentOfPlayersWithScoreInBounds: FAILURE
 AverageHighestPlayerLevelByGroup: 7.56
 MergeGroups: INVALID_INPUT
+GetPlayersBound: 1 1
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 12.25
@@ -312,7 +337,9 @@ ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: FAILURE
 RemovePlayer: SUCCESS
+GetPlayersBound: INVALID_INPUT
 AverageHighestPlayerLevelByGroup: 11.20
+GetPlayersBound: FAILURE
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: FAILURE
@@ -321,6 +348,7 @@ RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 16.33
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
 GetPercentOfPlayersWithScoreInBounds: 7.69
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: FAILURE
@@ -334,6 +362,7 @@ AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 6.62
 GetPercentOfPlayersWithScoreInBounds: 0.00
 GetPercentOfPlayersWithScoreInBounds: 8.33
+GetPlayersBound: 1 1
 AddPlayer: SUCCESS
 AddPlayer: FAILURE
 MergeGroups: SUCCESS
@@ -341,6 +370,7 @@ AverageHighestPlayerLevelByGroup: 10.60
 MergeGroups: SUCCESS
 MergeGroups: SUCCESS
 AverageHighestPlayerLevelByGroup: 8.83
+GetPlayersBound: 0 0
 AddPlayer: FAILURE
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
@@ -348,8 +378,10 @@ MergeGroups: SUCCESS
 AverageHighestPlayerLevelByGroup: 0.00
 RemovePlayer: SUCCESS
 ChangePlayerIDScore: INVALID_INPUT
+GetPlayersBound: 1 1
 GetPercentOfPlayersWithScoreInBounds: FAILURE
 AverageHighestPlayerLevelByGroup: 12.00
+GetPlayersBound: INVALID_INPUT
 IncreasePlayerIDLevel: SUCCESS
 AddPlayer: FAILURE
 RemovePlayer: SUCCESS
@@ -364,8 +396,10 @@ GetPercentOfPlayersWithScoreInBounds: 0.00
 ChangePlayerIDScore: INVALID_INPUT
 IncreasePlayerIDLevel: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: INVALID_INPUT
 AverageHighestPlayerLevelByGroup: 4.80
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: INVALID_INPUT
 AverageHighestPlayerLevelByGroup: 13.50
@@ -373,21 +407,29 @@ ChangePlayerIDScore: SUCCESS
 AddPlayer: FAILURE
 GetPercentOfPlayersWithScoreInBounds: 12.50
 AverageHighestPlayerLevelByGroup: 6.00
+GetPlayersBound: FAILURE
+GetPlayersBound: 0 1
 AverageHighestPlayerLevelByGroup: 10.80
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 AverageHighestPlayerLevelByGroup: FAILURE
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 6.89
 AverageHighestPlayerLevelByGroup: INVALID_INPUT
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 0.00
 IncreasePlayerIDLevel: SUCCESS
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 0.00
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
@@ -397,13 +439,18 @@ MergeGroups: SUCCESS
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 IncreasePlayerIDLevel: SUCCESS
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: INVALID_INPUT
 IncreasePlayerIDLevel: SUCCESS
 AverageHighestPlayerLevelByGroup: 15.50
 GetPercentOfPlayersWithScoreInBounds: 0.00
@@ -415,6 +462,7 @@ ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 6.45
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 25.00
 AverageHighestPlayerLevelByGroup: 5.10
@@ -425,6 +473,7 @@ IncreasePlayerIDLevel: SUCCESS
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 3.70
 AverageHighestPlayerLevelByGroup: 13.00
+GetPlayersBound: INVALID_INPUT
 AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 6.60
@@ -432,6 +481,7 @@ MergeGroups: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 4.12
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
 MergeGroups: SUCCESS
 AverageHighestPlayerLevelByGroup: 10.50
 GetPercentOfPlayersWithScoreInBounds: FAILURE
@@ -447,6 +497,7 @@ AverageHighestPlayerLevelByGroup: 8.00
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 13.00
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 0.00
 GetPercentOfPlayersWithScoreInBounds: 25.00
 GetPercentOfPlayersWithScoreInBounds: 11.11
@@ -462,6 +513,7 @@ AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 5.00
 AverageHighestPlayerLevelByGroup: 7.50
 AddPlayer: SUCCESS
@@ -470,30 +522,39 @@ AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: FAILURE
 AverageHighestPlayerLevelByGroup: 8.20
 RemovePlayer: FAILURE
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
 RemovePlayer: INVALID_INPUT
 GetPercentOfPlayersWithScoreInBounds: 50.00
 GetPercentOfPlayersWithScoreInBounds: 16.67
 AddPlayer: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: INVALID_INPUT
+GetPlayersBound: FAILURE
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: INVALID_INPUT
+GetPlayersBound: 0 1
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 0 0
 MergeGroups: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
 MergeGroups: SUCCESS
 AverageHighestPlayerLevelByGroup: 2.60
@@ -508,6 +569,8 @@ AverageHighestPlayerLevelByGroup: FAILURE
 AddPlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 MergeGroups: INVALID_INPUT
+GetPlayersBound: INVALID_INPUT
+GetPlayersBound: 1 1
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 100.00
@@ -529,20 +592,24 @@ IncreasePlayerIDLevel: SUCCESS
 MergeGroups: SUCCESS
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 10.00
 GetPercentOfPlayersWithScoreInBounds: 50.00
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 RemovePlayer: FAILURE
 AverageHighestPlayerLevelByGroup: 5.00
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: FAILURE
+GetPlayersBound: 0 1
 ChangePlayerIDScore: INVALID_INPUT
 AddPlayer: SUCCESS
 RemovePlayer: FAILURE
 GetPercentOfPlayersWithScoreInBounds: 33.33
 GetPercentOfPlayersWithScoreInBounds: 33.33
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 17.00
 IncreasePlayerIDLevel: SUCCESS
@@ -552,10 +619,15 @@ AverageHighestPlayerLevelByGroup: 6.29
 MergeGroups: SUCCESS
 AddPlayer: FAILURE
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 MergeGroups: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 0 0
 ChangePlayerIDScore: SUCCESS
 MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
@@ -566,7 +638,9 @@ IncreasePlayerIDLevel: FAILURE
 AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: FAILURE
 MergeGroups: SUCCESS
@@ -591,14 +665,17 @@ GetPercentOfPlayersWithScoreInBounds: 0.00
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: FAILURE
 AverageHighestPlayerLevelByGroup: 27.00
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 8.86
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: FAILURE
 AverageHighestPlayerLevelByGroup: 5.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
 MergeGroups: SUCCESS
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 50.00
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
@@ -609,6 +686,7 @@ MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 AverageHighestPlayerLevelByGroup: 12.20
+GetPlayersBound: INVALID_INPUT
 MergeGroups: SUCCESS
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
@@ -618,9 +696,11 @@ ChangePlayerIDScore: INVALID_INPUT
 AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 21.00
 RemovePlayer: FAILURE
+GetPlayersBound: 1 1
 IncreasePlayerIDLevel: FAILURE
 MergeGroups: SUCCESS
 AverageHighestPlayerLevelByGroup: 27.00
+GetPlayersBound: 0 1
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
@@ -635,23 +715,30 @@ AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 AverageHighestPlayerLevelByGroup: 6.46
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
+GetPlayersBound: 1 2
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 10.00
 IncreasePlayerIDLevel: SUCCESS
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 IncreasePlayerIDLevel: SUCCESS
 AverageHighestPlayerLevelByGroup: 9.60
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 9.56
+GetPlayersBound: 1 1
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 15.00
 GetPercentOfPlayersWithScoreInBounds: 0.00
@@ -666,6 +753,7 @@ ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 11.00
 RemovePlayer: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 AddPlayer: FAILURE
 ChangePlayerIDScore: INVALID_INPUT
 RemovePlayer: SUCCESS
@@ -673,6 +761,7 @@ ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 8.33
 GetPercentOfPlayersWithScoreInBounds: 0.00
 ChangePlayerIDScore: INVALID_INPUT
+GetPlayersBound: 1 1
 GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
@@ -689,8 +778,11 @@ RemovePlayer: SUCCESS
 ChangePlayerIDScore: FAILURE
 AverageHighestPlayerLevelByGroup: INVALID_INPUT
 RemovePlayer: FAILURE
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: FAILURE
@@ -698,10 +790,13 @@ AverageHighestPlayerLevelByGroup: 17.67
 AddPlayer: FAILURE
 ChangePlayerIDScore: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 1 1
 MergeGroups: SUCCESS
 MergeGroups: INVALID_INPUT
 RemovePlayer: FAILURE
 MergeGroups: SUCCESS
+GetPlayersBound: 0 0
 MergeGroups: SUCCESS
 ChangePlayerIDScore: SUCCESS
 MergeGroups: SUCCESS
@@ -710,20 +805,29 @@ ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
 AddPlayer: INVALID_INPUT
+GetPlayersBound: 1 1
 AddPlayer: FAILURE
 AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: FAILURE
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 22.67
 AddPlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 0
 AddPlayer: SUCCESS
 MergeGroups: INVALID_INPUT
 AddPlayer: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: FAILURE
+GetPlayersBound: 0 0
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
+GetPlayersBound: FAILURE
 GetPercentOfPlayersWithScoreInBounds: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 1 1
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
@@ -743,6 +847,8 @@ GetPercentOfPlayersWithScoreInBounds: 100.00
 GetPercentOfPlayersWithScoreInBounds: 12.50
 AverageHighestPlayerLevelByGroup: 8.67
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 30.00
@@ -750,8 +856,10 @@ AddPlayer: FAILURE
 GetPercentOfPlayersWithScoreInBounds: FAILURE
 ChangePlayerIDScore: SUCCESS
 MergeGroups: INVALID_INPUT
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 25.00
+GetPlayersBound: 1 1
 AverageHighestPlayerLevelByGroup: 8.67
 ChangePlayerIDScore: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 100.00
@@ -767,6 +875,7 @@ IncreasePlayerIDLevel: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
 IncreasePlayerIDLevel: SUCCESS
 AverageHighestPlayerLevelByGroup: 30.00
+GetPlayersBound: 0 1
 AverageHighestPlayerLevelByGroup: 30.00
 ChangePlayerIDScore: INVALID_INPUT
 IncreasePlayerIDLevel: FAILURE
@@ -781,6 +890,7 @@ IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 13.67
 AverageHighestPlayerLevelByGroup: 27.50
@@ -788,6 +898,7 @@ IncreasePlayerIDLevel: SUCCESS
 AverageHighestPlayerLevelByGroup: 27.50
 GetPercentOfPlayersWithScoreInBounds: 0.00
 ChangePlayerIDScore: FAILURE
+GetPlayersBound: 0 0
 RemovePlayer: SUCCESS
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
@@ -796,7 +907,10 @@ RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 17.75
 GetPercentOfPlayersWithScoreInBounds: 100.00
 GetPercentOfPlayersWithScoreInBounds: 50.00
+GetPlayersBound: 0 0
+GetPlayersBound: FAILURE
 IncreasePlayerIDLevel: INVALID_INPUT
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 17.75
 AverageHighestPlayerLevelByGroup: 22.33
 MergeGroups: SUCCESS
@@ -817,6 +931,7 @@ IncreasePlayerIDLevel: SUCCESS
 RemovePlayer: INVALID_INPUT
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 0 0
 AddPlayer: SUCCESS
 MergeGroups: SUCCESS
 AddPlayer: SUCCESS
@@ -825,6 +940,7 @@ MergeGroups: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 AverageHighestPlayerLevelByGroup: 13.00
+GetPlayersBound: INVALID_INPUT
 RemovePlayer: SUCCESS
 MergeGroups: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
@@ -840,10 +956,12 @@ AddPlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 33.33
 GetPercentOfPlayersWithScoreInBounds: 25.00
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 AverageHighestPlayerLevelByGroup: 26.50
 GetPercentOfPlayersWithScoreInBounds: 0.00
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: INVALID_INPUT
+GetPlayersBound: 1 1
 ChangePlayerIDScore: FAILURE
 IncreasePlayerIDLevel: FAILURE
 GetPercentOfPlayersWithScoreInBounds: 100.00
@@ -864,8 +982,10 @@ AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
 RemovePlayer: FAILURE
+GetPlayersBound: 0 1
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
+GetPlayersBound: 0 1
 ChangePlayerIDScore: FAILURE
 MergeGroups: INVALID_INPUT
 IncreasePlayerIDLevel: SUCCESS
@@ -877,21 +997,25 @@ ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: SUCCESS
 AddPlayer: SUCCESS
 AddPlayer: INVALID_INPUT
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: SUCCESS
 ChangePlayerIDScore: FAILURE
 GetPercentOfPlayersWithScoreInBounds: 33.33
 MergeGroups: SUCCESS
+GetPlayersBound: 1 1
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
 AddPlayer: FAILURE
 AverageHighestPlayerLevelByGroup: 9.80
 RemovePlayer: SUCCESS
 AddPlayer: SUCCESS
+GetPlayersBound: 0 0
 RemovePlayer: INVALID_INPUT
 ChangePlayerIDScore: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 1 1
 RemovePlayer: SUCCESS
 MergeGroups: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
@@ -905,14 +1029,19 @@ AverageHighestPlayerLevelByGroup: 23.00
 AverageHighestPlayerLevelByGroup: 39.00
 AverageHighestPlayerLevelByGroup: 23.00
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
+GetPlayersBound: 0 0
 GetPercentOfPlayersWithScoreInBounds: 0.00
 AddPlayer: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 0.00
+GetPlayersBound: 0 0
 MergeGroups: SUCCESS
+GetPlayersBound: FAILURE
 GetPercentOfPlayersWithScoreInBounds: 33.33
 IncreasePlayerIDLevel: INVALID_INPUT
 MergeGroups: SUCCESS
 GetPercentOfPlayersWithScoreInBounds: 50.00
+GetPlayersBound: FAILURE
 RemovePlayer: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
@@ -929,6 +1058,7 @@ AddPlayer: SUCCESS
 AddPlayer: SUCCESS
 RemovePlayer: SUCCESS
 RemovePlayer: SUCCESS
+GetPlayersBound: 0 1
 RemovePlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 0.00
 AddPlayer: SUCCESS
@@ -939,21 +1069,28 @@ AverageHighestPlayerLevelByGroup: 0.00
 IncreasePlayerIDLevel: SUCCESS
 ChangePlayerIDScore: INVALID_INPUT
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 0 0
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: FAILURE
 AddPlayer: SUCCESS
 AddPlayer: FAILURE
+GetPlayersBound: 0 0
 IncreasePlayerIDLevel: FAILURE
 AddPlayer: SUCCESS
+GetPlayersBound: 0 1
 AverageHighestPlayerLevelByGroup: FAILURE
 AddPlayer: SUCCESS
 AverageHighestPlayerLevelByGroup: 1.67
+GetPlayersBound: 0 0
 AddPlayer: SUCCESS
 IncreasePlayerIDLevel: FAILURE
 IncreasePlayerIDLevel: SUCCESS
 MergeGroups: SUCCESS
+GetPlayersBound: FAILURE
 ChangePlayerIDScore: SUCCESS
 IncreasePlayerIDLevel: SUCCESS
+GetPlayersBound: 1 1
+GetPlayersBound: 0 0
 AverageHighestPlayerLevelByGroup: 3.00
 MergeGroups: SUCCESS
 ChangePlayerIDScore: SUCCESS

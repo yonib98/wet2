@@ -220,7 +220,7 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
 }
 void PlayerManager::GetPlayersBound(int group_id, int score, int m,
                      int * LowerBoundPlayers, int * HigherBoundPlayers){
-    if(group_id==0 && score==120 && m==2){
+    if(group_id==0 && score==1 && m==5){
         int x=1;
     }
     if(group_id<0 || group_id > k || m<0 || score<=0 || score>scale){
@@ -242,8 +242,15 @@ void PlayerManager::GetPlayersBound(int group_id, int score, int m,
         }else {
             all_players_level_tree.getScoresBounds(score, players_without_level_0, LowerBoundPlayers,
                                                    HigherBoundPlayers);
-            *HigherBoundPlayers += zero_level_scores[score];
-            int num_of_players_to_add = m - players_without_level_0;
+            int dup_m=m;
+            m-=players_without_level_0;
+            if(zero_level_scores[score]>=m) {
+                *HigherBoundPlayers += m;
+            }
+            else{
+                *HigherBoundPlayers += zero_level_scores[score];
+            }
+            int num_of_players_to_add = dup_m - players_without_level_0;
             int num_of_players_without_the_score = zero_level_count-zero_level_scores[score];
             if (num_of_players_without_the_score >= num_of_players_to_add) {
                 *LowerBoundPlayers += 0;
@@ -267,8 +274,15 @@ void PlayerManager::GetPlayersBound(int group_id, int score, int m,
             group->levels_tree.getScoresBounds(score,m,LowerBoundPlayers,HigherBoundPlayers);
         }else{
             group->levels_tree.getScoresBounds(score,players_without_level_0,LowerBoundPlayers,HigherBoundPlayers);
-            *HigherBoundPlayers+=group->group_zero_level_scores[score];
-            int num_of_players_to_add = m-players_without_level_0;
+            int dup_m=m;
+            m-=players_without_level_0;
+            if(group->group_zero_level_scores[score]>=m) {
+                *HigherBoundPlayers += m;
+            }
+            else{
+                *HigherBoundPlayers+=group->group_zero_level_scores[score];
+            }
+                int num_of_players_to_add = dup_m-players_without_level_0;
             int num_of_players_without_the_score=zero_level_count-group->group_zero_level_scores[score];
             if (num_of_players_without_the_score >= num_of_players_to_add) {
                 *LowerBoundPlayers += 0;

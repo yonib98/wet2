@@ -927,9 +927,18 @@ void AVLTree::getScoresBounds (int score, int m,int * LowerBoundPlayers, int * H
             m-=current_count;
         }else{
             int players_with_score = tmp->self_scores[score];
+            int dup_m=m;
+            if(players_with_score>=m){
+                *HigherBoundPlayers+=m;
+                m=0;
+            }
+            else{
+                *HigherBoundPlayers+=players_with_score;
+                m-=players_with_score;
+            }
             int players_without_score = current_count-players_with_score;
-            int left_to_add  = m-players_without_score;
-            *HigherBoundPlayers+=players_with_score;
+            int left_to_add  = dup_m-players_without_score;
+
             if(left_to_add<=0){
                 *LowerBoundPlayers+=0;
             }else{
