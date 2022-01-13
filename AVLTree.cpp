@@ -908,9 +908,12 @@ void AVLTree::getScoresBounds (int score, int m,int * LowerBoundPlayers, int * H
         if(tmp->right!=nullptr){
             int right_players_count = tmp->right->getSubTreePlayersCount();
             if(right_players_count<=m){
-                *LowerBoundPlayers+=tmp->right->sub_tree_scores[score];
+                *LowerBoundPlayers += tmp->right->sub_tree_scores[score];
                 *HigherBoundPlayers+=tmp->right->sub_tree_scores[score];
                 m-=right_players_count;
+                if(m==0){
+                    return;
+                }
             }
             else{
                 tmp = tmp->right;
