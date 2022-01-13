@@ -158,7 +158,7 @@ StatusType GetPlayersBound(void *DS, int GroupID, int score, int m,
     }
     try{
         PlayerManager* pm=(PlayerManager*)DS;
-        pm->getPlayersBound(GroupID,score,m,LowerBoundPlayers,HigherBoundPlayers);
+        pm->GetPlayersBound(GroupID,score,m,LowerBoundPlayers,HigherBoundPlayers);
     }
     catch(InvalidInput& e){
         return INVALID_INPUT;

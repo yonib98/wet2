@@ -68,33 +68,97 @@ include CMakeFiles/wet2mivney.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/wet2mivney.dir/flags.make
 
-CMakeFiles/wet2mivney.dir/HashTests.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
-CMakeFiles/wet2mivney.dir/HashTests.cpp.obj: ../HashTests.cpp
-CMakeFiles/wet2mivney.dir/HashTests.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/wet2mivney.dir/HashTests.cpp.obj"
-	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/HashTests.cpp.obj -MF CMakeFiles\wet2mivney.dir\HashTests.cpp.obj.d -o CMakeFiles\wet2mivney.dir\HashTests.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\HashTests.cpp
+CMakeFiles/wet2mivney.dir/library2.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
+CMakeFiles/wet2mivney.dir/library2.cpp.obj: ../library2.cpp
+CMakeFiles/wet2mivney.dir/library2.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/wet2mivney.dir/library2.cpp.obj"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/library2.cpp.obj -MF CMakeFiles\wet2mivney.dir\library2.cpp.obj.d -o CMakeFiles\wet2mivney.dir\library2.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\library2.cpp
 
-CMakeFiles/wet2mivney.dir/HashTests.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/HashTests.cpp.i"
-	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\HashTests.cpp > CMakeFiles\wet2mivney.dir\HashTests.cpp.i
+CMakeFiles/wet2mivney.dir/library2.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/library2.cpp.i"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\library2.cpp > CMakeFiles\wet2mivney.dir\library2.cpp.i
 
-CMakeFiles/wet2mivney.dir/HashTests.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/HashTests.cpp.s"
-	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\HashTests.cpp -o CMakeFiles\wet2mivney.dir\HashTests.cpp.s
+CMakeFiles/wet2mivney.dir/library2.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/library2.cpp.s"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\library2.cpp -o CMakeFiles\wet2mivney.dir\library2.cpp.s
+
+CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
+CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj: ../Segel_Test.cpp
+CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj -MF CMakeFiles\wet2mivney.dir\Segel_Test.cpp.obj.d -o CMakeFiles\wet2mivney.dir\Segel_Test.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\Segel_Test.cpp
+
+CMakeFiles/wet2mivney.dir/Segel_Test.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/Segel_Test.cpp.i"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\Segel_Test.cpp > CMakeFiles\wet2mivney.dir\Segel_Test.cpp.i
+
+CMakeFiles/wet2mivney.dir/Segel_Test.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/Segel_Test.cpp.s"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\Segel_Test.cpp -o CMakeFiles\wet2mivney.dir\Segel_Test.cpp.s
+
+CMakeFiles/wet2mivney.dir/Union.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
+CMakeFiles/wet2mivney.dir/Union.cpp.obj: ../Union.cpp
+CMakeFiles/wet2mivney.dir/Union.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/wet2mivney.dir/Union.cpp.obj"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/Union.cpp.obj -MF CMakeFiles\wet2mivney.dir\Union.cpp.obj.d -o CMakeFiles\wet2mivney.dir\Union.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\Union.cpp
+
+CMakeFiles/wet2mivney.dir/Union.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/Union.cpp.i"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\Union.cpp > CMakeFiles\wet2mivney.dir\Union.cpp.i
+
+CMakeFiles/wet2mivney.dir/Union.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/Union.cpp.s"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\Union.cpp -o CMakeFiles\wet2mivney.dir\Union.cpp.s
+
+CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
+CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj: ../PlayersManager.cpp
+CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj -MF CMakeFiles\wet2mivney.dir\PlayersManager.cpp.obj.d -o CMakeFiles\wet2mivney.dir\PlayersManager.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\PlayersManager.cpp
+
+CMakeFiles/wet2mivney.dir/PlayersManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/PlayersManager.cpp.i"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\PlayersManager.cpp > CMakeFiles\wet2mivney.dir\PlayersManager.cpp.i
+
+CMakeFiles/wet2mivney.dir/PlayersManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/PlayersManager.cpp.s"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\PlayersManager.cpp -o CMakeFiles\wet2mivney.dir\PlayersManager.cpp.s
+
+CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj: CMakeFiles/wet2mivney.dir/flags.make
+CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj: ../AVLTree.cpp
+CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj: CMakeFiles/wet2mivney.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj -MF CMakeFiles\wet2mivney.dir\AVLTree.cpp.obj.d -o CMakeFiles\wet2mivney.dir\AVLTree.cpp.obj -c C:\Users\evrih\OneDrive\Desktop\wet2mivney\AVLTree.cpp
+
+CMakeFiles/wet2mivney.dir/AVLTree.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/wet2mivney.dir/AVLTree.cpp.i"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\evrih\OneDrive\Desktop\wet2mivney\AVLTree.cpp > CMakeFiles\wet2mivney.dir\AVLTree.cpp.i
+
+CMakeFiles/wet2mivney.dir/AVLTree.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/wet2mivney.dir/AVLTree.cpp.s"
+	C:\TDM-GCC-64\bin\x86_64-w64-mingw32-g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\evrih\OneDrive\Desktop\wet2mivney\AVLTree.cpp -o CMakeFiles\wet2mivney.dir\AVLTree.cpp.s
 
 # Object files for target wet2mivney
 wet2mivney_OBJECTS = \
-"CMakeFiles/wet2mivney.dir/HashTests.cpp.obj"
+"CMakeFiles/wet2mivney.dir/library2.cpp.obj" \
+"CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj" \
+"CMakeFiles/wet2mivney.dir/Union.cpp.obj" \
+"CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj" \
+"CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj"
 
 # External object files for target wet2mivney
 wet2mivney_EXTERNAL_OBJECTS =
 
-wet2mivney.exe: CMakeFiles/wet2mivney.dir/HashTests.cpp.obj
+wet2mivney.exe: CMakeFiles/wet2mivney.dir/library2.cpp.obj
+wet2mivney.exe: CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj
+wet2mivney.exe: CMakeFiles/wet2mivney.dir/Union.cpp.obj
+wet2mivney.exe: CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj
+wet2mivney.exe: CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj
 wet2mivney.exe: CMakeFiles/wet2mivney.dir/build.make
 wet2mivney.exe: CMakeFiles/wet2mivney.dir/linklibs.rsp
 wet2mivney.exe: CMakeFiles/wet2mivney.dir/objects1.rsp
 wet2mivney.exe: CMakeFiles/wet2mivney.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable wet2mivney.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable wet2mivney.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\wet2mivney.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

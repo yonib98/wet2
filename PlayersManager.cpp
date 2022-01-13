@@ -227,14 +227,17 @@ void PlayerManager::GetPlayersBound(int group_id, int score, int m,
     *HigherBoundPlayers=0;
     if(group_id==0){
         int players_without_level_0=all_players_level_tree.getTreePlayersCount();
+        int zero_level_count=0;
+        for(int i=1;i<=scale;i++){
+            zero_level_count+=zero_level_scores[i];
+        }
+        if(players_without_level_0+zero_level_count<m){
+            throw NoPlayers();
+        }
         if(players_without_level_0>=m){
             all_players_level_tree.getScoresBounds(score,m,LowerBoundPlayers,HigherBoundPlayers);
         }else{
             all_players_level_tree.getScoresBounds(score,players_without_level_0,LowerBoundPlayers,HigherBoundPlayers);
-            int zero_level_count=0;
-            for(int i=1;i<=scale;i++){
-                zero_level_count+=zero_level_scores[i];
-            }
             *HigherBoundPlayers+=zero_level_scores[score];
             int num_of_players_to_add = m-players_without_level_0;
             if(num_of_players_to_add-zero_level_scores[score]>=0){
@@ -245,10 +248,31 @@ void PlayerManager::GetPlayersBound(int group_id, int score, int m,
         }
 
     }else{
-
+        int group_index=groups_ids.find(group_id);
+        Group* group=groups_array[group_index];
+        int players_without_level_0=group->levels_tree.getTreePlayersCount();
+        int zero_level_count=0;
+        for(int i=0;i<=scale;i++){
+            zero_level_count+=group->group_zero_level_scores[i];
+        }
+        if(players_without_level_0+zero_level_count<m){
+            throw NoPlayers();
+        }
+        if(players_without_level_0>=m){
+            all_players_level_tree.getScoresBounds(score,m,LowerBoundPlayers,HigherBoundPlayers);
+        }else{
+            all_players_level_tree.getScoresBounds(score,players_without_level_0,LowerBoundPlayers,HigherBoundPlayers);
+            *HigherBoundPlayers+=zero_level_scores[score];
+            int num_of_players_to_add = m-players_without_level_0;
+            if(num_of_players_to_add-zero_level_scores[score]>=0){
+                *LowerBoundPlayers+=0;
+            }else{
+                *LowerBoundPlayers+=zero_level_scores[score]-num_of_players_to_add;
+            }
+        }
     }
 }
-PlayerManager::~PlayerManager() {
+PlayerManager::~PlayerManager(){
     for(int i=1;i<=k;i++){
         groups_array[i]->levels_tree.deleteTree();
         delete groups_array[i];

@@ -80,12 +80,12 @@ clean: CMakeFiles/wet2mivney.dir/clean
 CMakeFiles/wet2mivney.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=1,2 "Built target wet2mivney"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target wet2mivney"
 .PHONY : CMakeFiles/wet2mivney.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/wet2mivney.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/wet2mivney.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\evrih\OneDrive\Desktop\wet2mivney\build\CMakeFiles 0
 .PHONY : CMakeFiles/wet2mivney.dir/rule

@@ -128,29 +128,125 @@ wet2mivney/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/build
 .PHONY : wet2mivney/fast
 
-HashTests.obj: HashTests.cpp.obj
-.PHONY : HashTests.obj
+AVLTree.obj: AVLTree.cpp.obj
+.PHONY : AVLTree.obj
 
 # target to build an object file
-HashTests.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/HashTests.cpp.obj
-.PHONY : HashTests.cpp.obj
+AVLTree.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/AVLTree.cpp.obj
+.PHONY : AVLTree.cpp.obj
 
-HashTests.i: HashTests.cpp.i
-.PHONY : HashTests.i
+AVLTree.i: AVLTree.cpp.i
+.PHONY : AVLTree.i
 
 # target to preprocess a source file
-HashTests.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/HashTests.cpp.i
-.PHONY : HashTests.cpp.i
+AVLTree.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/AVLTree.cpp.i
+.PHONY : AVLTree.cpp.i
 
-HashTests.s: HashTests.cpp.s
-.PHONY : HashTests.s
+AVLTree.s: AVLTree.cpp.s
+.PHONY : AVLTree.s
 
 # target to generate assembly for a file
-HashTests.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/HashTests.cpp.s
-.PHONY : HashTests.cpp.s
+AVLTree.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/AVLTree.cpp.s
+.PHONY : AVLTree.cpp.s
+
+PlayersManager.obj: PlayersManager.cpp.obj
+.PHONY : PlayersManager.obj
+
+# target to build an object file
+PlayersManager.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/PlayersManager.cpp.obj
+.PHONY : PlayersManager.cpp.obj
+
+PlayersManager.i: PlayersManager.cpp.i
+.PHONY : PlayersManager.i
+
+# target to preprocess a source file
+PlayersManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/PlayersManager.cpp.i
+.PHONY : PlayersManager.cpp.i
+
+PlayersManager.s: PlayersManager.cpp.s
+.PHONY : PlayersManager.s
+
+# target to generate assembly for a file
+PlayersManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/PlayersManager.cpp.s
+.PHONY : PlayersManager.cpp.s
+
+Segel_Test.obj: Segel_Test.cpp.obj
+.PHONY : Segel_Test.obj
+
+# target to build an object file
+Segel_Test.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Segel_Test.cpp.obj
+.PHONY : Segel_Test.cpp.obj
+
+Segel_Test.i: Segel_Test.cpp.i
+.PHONY : Segel_Test.i
+
+# target to preprocess a source file
+Segel_Test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Segel_Test.cpp.i
+.PHONY : Segel_Test.cpp.i
+
+Segel_Test.s: Segel_Test.cpp.s
+.PHONY : Segel_Test.s
+
+# target to generate assembly for a file
+Segel_Test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Segel_Test.cpp.s
+.PHONY : Segel_Test.cpp.s
+
+Union.obj: Union.cpp.obj
+.PHONY : Union.obj
+
+# target to build an object file
+Union.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Union.cpp.obj
+.PHONY : Union.cpp.obj
+
+Union.i: Union.cpp.i
+.PHONY : Union.i
+
+# target to preprocess a source file
+Union.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Union.cpp.i
+.PHONY : Union.cpp.i
+
+Union.s: Union.cpp.s
+.PHONY : Union.s
+
+# target to generate assembly for a file
+Union.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/Union.cpp.s
+.PHONY : Union.cpp.s
+
+library2.obj: library2.cpp.obj
+.PHONY : library2.obj
+
+# target to build an object file
+library2.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/library2.cpp.obj
+.PHONY : library2.cpp.obj
+
+library2.i: library2.cpp.i
+.PHONY : library2.i
+
+# target to preprocess a source file
+library2.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/library2.cpp.i
+.PHONY : library2.cpp.i
+
+library2.s: library2.cpp.s
+.PHONY : library2.s
+
+# target to generate assembly for a file
+library2.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\wet2mivney.dir\build.make CMakeFiles/wet2mivney.dir/library2.cpp.s
+.PHONY : library2.cpp.s
 
 # Help Target
 help:
@@ -161,9 +257,21 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... wet2mivney
-	@echo ... HashTests.obj
-	@echo ... HashTests.i
-	@echo ... HashTests.s
+	@echo ... AVLTree.obj
+	@echo ... AVLTree.i
+	@echo ... AVLTree.s
+	@echo ... PlayersManager.obj
+	@echo ... PlayersManager.i
+	@echo ... PlayersManager.s
+	@echo ... Segel_Test.obj
+	@echo ... Segel_Test.i
+	@echo ... Segel_Test.s
+	@echo ... Union.obj
+	@echo ... Union.i
+	@echo ... Union.s
+	@echo ... library2.obj
+	@echo ... library2.i
+	@echo ... library2.s
 .PHONY : help
 
 
