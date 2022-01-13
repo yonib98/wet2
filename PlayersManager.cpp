@@ -220,9 +220,6 @@ void PlayerManager::mergeGroups(int first_group, int second_group){
 }
 void PlayerManager::GetPlayersBound(int group_id, int score, int m,
                      int * LowerBoundPlayers, int * HigherBoundPlayers){
-    if(group_id==0 && score==1 && m==5){
-        int x=1;
-    }
     if(group_id<0 || group_id > k || m<0 || score<=0 || score>scale){
         throw InvalidInput();
     }
