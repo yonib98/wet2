@@ -58,7 +58,6 @@ void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
         throw InvalidInput();
     }
     Player* player=players_table.search(player_id);
-    int count=all_players_level_tree.getTreePlayersCount();
     if(player==nullptr){
         throw DoesNotExist(); //Does not exist
     }
