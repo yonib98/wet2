@@ -301,7 +301,6 @@ typename AVLTree::Node* AVLTree::innerRemove(Node* to_find,int score,bool* do_re
         found->updateSubTreeScores();
         new_node->parent->left=found;
         found->parent = new_node->parent;
-
         new_node->left = new_left_son;
         new_node->right = new_right_son;
         new_node->updateHeight();
@@ -455,24 +454,6 @@ bool AVLTree::isEmpty() const {
 
 void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
     Node *temp = root_left_son->right;
-//    for(int i=1;i<=scale;i++){
-//        root_left_son->sub_tree_scores[i]=current_root->sub_tree_scores[i];
-//
-//    }
-//    if(current_root->right!=nullptr){
-//        for(int i=1;i<=scale;i++){
-//            current_root->sub_tree_scores[i]=current_root->right->sub_tree_scores[i];
-//        }
-//    }else{
-//        for(int i=1;i<=scale;i++){
-//            current_root->sub_tree_scores[i] = current_root->self_scores[i];
-//        }
-//    }
-//    if(temp!=nullptr){
-//        for(int i=1;i<=scale;i++){
-//            current_root->sub_tree_scores[i]+=temp->sub_tree_scores[i];
-//        }
-//    }
     root_left_son->right = (current_root);
     root_left_son->parent=current_root->parent;
     current_root->parent=root_left_son;
@@ -492,24 +473,6 @@ void AVLTree::rightRotation(Node *current_root, Node *root_left_son) {
 void AVLTree::leftRotation(Node *current_root, Node *root_right_son) {
 
     Node *temp = root_right_son->left;
-//    for (int i = 1; i <= scale; i++) {
-//        root_right_son->sub_tree_scores[i] = current_root->sub_tree_scores[i];
-//
-//    }
-//    if (current_root->left != nullptr) {
-//        for (int i = 1; i <= scale; i++) {
-//            current_root->sub_tree_scores[i] = current_root->left->sub_tree_scores[i];
-//        }
-//    } else {
-//        for (int i = 1; i <= scale; i++) {
-//            current_root->sub_tree_scores[i] = current_root->self_scores[i];
-//        }
-//    }
-//    if (temp != nullptr) {
-//        for (int i = 1; i <= scale; i++) {
-//            current_root->sub_tree_scores[i] += temp->sub_tree_scores[i];
-//        }
-//    }
     root_right_son->left = (current_root);
     root_right_son->parent = current_root->parent;
     current_root->parent = root_right_son;
@@ -548,14 +511,7 @@ bool AVLTree::Node::operator>(const typename AVLTree::Node &to_compare) const {
     }
     return this->key_primary > to_compare.key_primary;
 }
-void AVLTree::updateSmallest(){
-    Node* tmp = root;
-    smallest=root;
-    while(tmp!=nullptr){
-        smallest = tmp;
-        tmp = tmp->left;
-    }
-}
+
 void AVLTree::updateBiggest(){
     Node* tmp = root;
     biggest=root;
@@ -807,7 +763,7 @@ void AVLTree::scoresInInterval(bool lower_bound, int score,int level,int* sum_of
     to_search.key_secondary=0;
     Node* temp=root;
     while(temp!=nullptr){
-        temp->updateSubTreeScores();
+//        temp->updateSubTreeScores();
         if(to_search==*temp) {
             if(lower_bound==false){
                 for(int i=1;i<=scale;i++){
@@ -885,7 +841,6 @@ void AVLTree::getMaxAverage(int m,int * sum){
         } else {
             *sum += m * tmp->key_primary;
             m = 0;
-
         }
         tmp = tmp->left;
     }

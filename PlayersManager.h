@@ -21,11 +21,10 @@ public:
 
         AVLTree levels_tree;
         int *group_zero_level_scores;
-        int size;
         int scale;
     public:
         Group ()=default;
-        Group(int scale) : levels_tree(false, scale), size(0), scale(scale) {
+        Group(int scale) : levels_tree(false, scale), scale(scale) {
             group_zero_level_scores = new int[scale + 1];
             for (int i = 0; i <= scale; i++) {
                 group_zero_level_scores[i] = 0;

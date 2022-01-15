@@ -12,7 +12,6 @@ class AVLTree {
         int scale;
         int* sub_tree_scores;
         int* self_scores;
-//        double average;
         int sub_tree_sum_of_levels;
         Node *parent;
         Node *left;
@@ -49,19 +48,7 @@ class AVLTree {
             sum+=(counter_current_node)*(key_primary);
             sub_tree_sum_of_levels=sum;
         }
-//        void updateAverage(){
-//            int count_left = left == nullptr? 0:left->getSubTreePlayersCount();
-//            int count_right = right == nullptr? 0:right->getSubTreePlayersCount();
-//            if(count_left+count_right==0){
-//                average=key_primary;
-//            }else{
-//                average=count_left==0? 0:left->average*count_left;
-//                average+=count_right==0? 0:right->average*count_right;
-//                int count_current = getPlayersCount();
-//                average+=count_current*key_primary;
-//                average=(double)average/(count_left+count_right+count_current);
-//            }
-//        }
+
         void updateSubTreeScores(){
            for(int i=1;i<=scale;i++){
                sub_tree_scores[i] = left==nullptr? self_scores[i]:left->sub_tree_scores[i]+self_scores[i];
@@ -127,7 +114,6 @@ protected:
     bool use_secondary_key;
     Node *root;
     Node *biggest;
-    Node* smallest;
 
 public:
     Node *innerFind(const Node &to_search) const;

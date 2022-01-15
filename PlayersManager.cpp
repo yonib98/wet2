@@ -14,8 +14,6 @@ PlayerManager::PlayerManager(int k,int scale): all_players_level_tree(false,scal
     }
 }
 void PlayerManager::addPlayer(int player_id,int group_id,int score){
-    static int counter=0;
-    counter++;
     if(group_id>k || group_id<=0 || player_id<=0 || score>scale || score<=0){
         throw InvalidInput();
     }
@@ -56,9 +54,6 @@ void PlayerManager::removePlayer(int player_id){
 }
 
 void PlayerManager::increasePlayerIDLevel(int player_id,int level_increase){
-    if(player_id==1271352989 ){
-        int x=1;
-    }
     if(player_id<=0 || level_increase<=0){
         throw InvalidInput();
     }
@@ -152,9 +147,6 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
 }
 
 void PlayerManager::averageHighestPlayerLevelByGroup(int group_id, int m, double * avgLevel){
-    if(group_id==0 && m==21){
-        int x=1;
-    }
     if(group_id>k || group_id<0 || m<=0){
         throw InvalidInput();
     }

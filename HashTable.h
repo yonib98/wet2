@@ -115,11 +115,6 @@ T* HashTable<T>::search(int key) const{
     return nullptr;//does not exist
 }
 
-//AddPlayer 1511996719 5 52 ->>> 4 ->> 9
-//AddPlayer 976756301 29 22 ->> 1 ->> 1
-//AddPlayer 1000848759 16 98 ->> 4 ->> 4
-//AddPlayer 1819072310 13 51 ->>> 0 -> 0
-//AddPlayer 660622207 15 74 ->>> 2 -> 7
 template<class T>
 void HashTable<T>::expand() {
     int old_table_size=table_size;
