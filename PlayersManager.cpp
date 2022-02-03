@@ -115,6 +115,12 @@ void PlayerManager::getPercentOfPlayersWithScoreInBounds (int group_id, int scor
     if(lower_level>higher_level){
         throw NoPlayers();
     }
+    if(higher_level<0){
+        throw NoPlayers();
+    }
+    if(lower_level<0){
+        lower_level=0;
+    }
     int sum_of_players_in_bounds = 0;
     int sum_of_players_with_score_in_bounds = 0;
     if (group_id == 0) {
